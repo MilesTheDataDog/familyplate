@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Camera, Book, Home, Plus, X, FileImage, Trash2, ShoppingCart, Menu } from 'lucide-react';
 
+// Optimized icon wrapper for crisp SVG rendering
+const Icon = ({ component: Component, size = 24, className = '', strokeWidth = 2, ...props }) => (
+  <Component 
+    size={size} 
+    className={className} 
+    strokeWidth={strokeWidth}
+    aria-hidden="true"
+    style={{ 
+      display: 'block',
+      flexShrink: 0,
+      backfaceVisibility: 'hidden',
+      transform: 'translateZ(0)'
+    }}
+    {...props}
+  />
+);
+
 const HamburgerMenu = ({ isOpen, onClose, activeScreen, onNavigate }) => {
   if (!isOpen) return null;
   
@@ -24,7 +41,7 @@ const HamburgerMenu = ({ isOpen, onClose, activeScreen, onNavigate }) => {
                   : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
-              <Home size={24} />
+              <Icon component={Home} size={24} />
               <span>Home</span>
             </button>
             <button
@@ -35,7 +52,7 @@ const HamburgerMenu = ({ isOpen, onClose, activeScreen, onNavigate }) => {
                   : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
-              <Plus size={24} />
+              <Icon component={Plus} size={24} />
               <span>Add Recipe</span>
             </button>
             <button
@@ -46,7 +63,7 @@ const HamburgerMenu = ({ isOpen, onClose, activeScreen, onNavigate }) => {
                   : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
-              <Book size={24} />
+              <Icon component={Book} size={24} />
               <span>My Recipes</span>
             </button>
             <button
@@ -57,7 +74,7 @@ const HamburgerMenu = ({ isOpen, onClose, activeScreen, onNavigate }) => {
                   : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
-              <ShoppingCart size={24} />
+              <Icon component={ShoppingCart} size={24} />
               <span>Shopping List</span>
             </button>
           </nav>
@@ -74,7 +91,7 @@ const TopBar = ({ onMenuClick }) => (
         onClick={onMenuClick}
         className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors"
       >
-        <Menu size={20} className="text-gray-700 sm:w-6 sm:h-6" />
+        <Icon component={Menu} size={24} className="text-gray-700" />
       </button>
       <h1 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
         FamilyPlate
@@ -219,7 +236,7 @@ Return only valid JSON, no markdown.`;
 
   if (loading) return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 flex items-center justify-center">
-      <Book className="text-orange-600 animate-pulse" size={48} />
+      <Icon component={Book} size={48} className="text-orange-600 animate-pulse" />
     </div>
   );
 
@@ -231,7 +248,7 @@ Return only valid JSON, no markdown.`;
         <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-8 sm:py-12">
           <div className="text-center mb-8 sm:mb-12">
             <div className="inline-block p-3 sm:p-4 bg-gradient-to-br from-orange-400 to-rose-400 rounded-full mb-4 sm:mb-6 shadow-xl">
-              <Book size={48} className="text-white sm:w-16 sm:h-16" strokeWidth={2} />
+              <Icon component={Book} size={64} className="text-white" />
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-4">Your family recipes deserve forever</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 italic mb-2 px-4">Digitize and preserve your treasured family recipes</p>
@@ -242,7 +259,7 @@ Return only valid JSON, no markdown.`;
             <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Get Started</h3>
             <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Use the menu button in the top left to navigate</p>
             <div className="flex items-center justify-center gap-2 text-orange-600">
-              <Menu size={20} className="sm:w-6 sm:h-6" />
+              <Icon component={Menu} size={24} />
               <span className="text-sm sm:text-base font-semibold">Click the menu to begin</span>
             </div>
           </div>
@@ -263,7 +280,7 @@ Return only valid JSON, no markdown.`;
               <input type="file" accept="image/*" onChange={handleUpload} className="hidden" id="fileInput" />
               <label htmlFor="fileInput" className="cursor-pointer">
                 <div className="inline-block p-3 sm:p-4 bg-orange-100 rounded-full mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                  <FileImage className="mx-auto text-orange-600 w-10 h-10 sm:w-12 sm:h-12" strokeWidth={2} />
+                  <Icon component={FileImage} size={48} className="mx-auto text-orange-600" />
                 </div>
                 <p className="text-lg sm:text-xl font-semibold">Click to upload</p>
               </label>
@@ -300,7 +317,7 @@ Return only valid JSON, no markdown.`;
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 flex items-center justify-center">
       <div className="text-center">
         <div className="inline-block p-4 bg-orange-100 rounded-full mb-6 animate-pulse">
-          <Book className="mx-auto text-orange-600" size={64} strokeWidth={2} />
+          <Icon component={Book} size={64} className="mx-auto text-orange-600" />
         </div>
         <h2 className="text-3xl font-bold">Reading your recipe...</h2>
       </div>
@@ -321,7 +338,7 @@ Return only valid JSON, no markdown.`;
           {recipes.length === 0 ? (
             <div className="bg-gradient-to-br from-white to-orange-50 rounded-2xl sm:rounded-3xl shadow-lg p-8 sm:p-12 text-center border border-orange-100">
               <div className="inline-block p-3 sm:p-4 bg-orange-100 rounded-full mb-3 sm:mb-4">
-                <Book className="mx-auto text-orange-600 w-10 h-10 sm:w-12 sm:h-12" strokeWidth={2} />
+                <Icon component={Book} size={48} className="mx-auto text-orange-600" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">No recipes yet</h3>
               <button onClick={() => setScreen('upload')} className="bg-gradient-to-r from-orange-500 to-rose-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:shadow-lg transition-shadow shadow-md text-sm sm:text-base">
@@ -354,7 +371,7 @@ Return only valid JSON, no markdown.`;
         <div className="max-w-4xl mx-auto">
           <div className="mb-3 sm:mb-4 flex justify-between items-center">
             <button onClick={() => { setCurrentRecipe(null); setScreen('library'); }} className="text-gray-600 flex items-center gap-1 sm:gap-2 hover:text-gray-800 transition-colors text-sm sm:text-base">
-              <X size={18} className="sm:w-5 sm:h-5" /> Back
+              <Icon component={X} size={20} /> Back
             </button>
             <button onClick={() => deleteRecipe(currentRecipe.id)} className="bg-white border-2 border-red-400 text-red-600 px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-red-50 transition-colors shadow-md">
               Delete
@@ -408,7 +425,7 @@ Return only valid JSON, no markdown.`;
           <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Shopping List</h2>
           <div className="bg-gradient-to-br from-white to-orange-50 rounded-2xl sm:rounded-3xl shadow-lg p-8 sm:p-12 text-center border border-orange-100">
             <div className="inline-block p-3 sm:p-4 bg-orange-100 rounded-full mb-3 sm:mb-4">
-              <ShoppingCart className="mx-auto text-orange-600 w-10 h-10 sm:w-12 sm:h-12" strokeWidth={2} />
+              <Icon component={ShoppingCart} size={48} className="mx-auto text-orange-600" />
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Shopping list coming soon!</h3>
             <p className="text-sm sm:text-base text-gray-600">This feature will let you add ingredients from recipes to a shopping list.</p>
