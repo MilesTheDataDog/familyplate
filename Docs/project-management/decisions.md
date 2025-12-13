@@ -20,9 +20,10 @@ This document records significant architectural and technical decisions made dur
 5. [ADR-005: Deploy on Vercel](#adr-005-deploy-on-vercel)
 6. [ADR-006: Store Images as Base64](#adr-006-store-images-as-base64)
 7. [ADR-007: Use Vercel Serverless Functions](#adr-007-use-vercel-serverless-functions)
-8. [ADR-008: Migrate to React Native](#adr-008-migrate-to-react-native)
+8. [ADR-008: Migrate to React Native Web](#adr-008-migrate-to-react-native-web)
 9. [ADR-009: Use Expo for React Native](#adr-009-use-expo-for-react-native)
-10. [ADR-010: Use SQLite for Mobile Storage](#adr-010-use-sqlite-for-mobile-storage)
+10. [ADR-010: Use AsyncStorage for Mobile Storage](#adr-010-use-asyncstorage-for-mobile-storage)
+11. [ADR-011: Client Requirement - Single Codebase](#adr-011-client-requirement---single-codebase)
 
 ---
 
@@ -558,92 +559,97 @@ Vercel Serverless Functions chosen because:
 
 ---
 
-## ADR-008: Migrate to React Native
+## ADR-008: Migrate to React Native Web
 
-**Date:** December 5, 2025  
+**Date:** December 10, 2025  
 **Status:** Accepted  
-**Deciders:** Technical Lead, Product Owner, Stakeholders
+**Deciders:** Technical Lead, Product Owner, Client Stakeholders
 
 ### Context
 
-User research shows:
-- 85% of users access recipes while cooking (mobile context)
-- Users want offline access
-- Native camera integration is desired
-- Current web app feels less polished on mobile
-
-We need to decide whether to enhance the web app or build native mobile apps.
+We have a working React web application, but the client has mandated a **company requirement for a single codebase** that supports both web and mobile platforms. We need to decide how to deliver native mobile apps while maintaining web functionality from one codebase.
 
 ### Decision
 
-We will **migrate to React Native** to build native iOS and Android applications while maintaining the web version for desktop users.
+We will migrate to **React Native Web** using Expo, creating a single codebase that deploys to iOS, Android, and web.
 
 ### Options Considered
 
-1. **React Native Migration**
-   - Pros: Reuse 60-70% code, native performance, offline-first, full device access
-   - Cons: Longer development time (20 weeks), higher cost ($80-120k), app store distribution
+1. **React Native Web (Expo)**
+   - Pros: Single codebase, native apps + web, 60-70% code reuse, meets client requirement
+   - Cons: Larger web bundle, some web optimizations harder, learning curve
 
-2. **Progressive Web App (PWA)**
-   - Pros: Enhance existing web app, offline support, faster/cheaper
-   - Cons: Still web limitations, poor iOS support, no native feel, limited device access
+2. **Separate React Native Apps + Keep Web**
+   - Pros: Optimized for each platform, better web performance
+   - Cons: Two codebases, doesn't meet client requirement, 2x maintenance
 
-3. **Keep Web-Only**
-   - Pros: Cheapest, fastest, already done
-   - Cons: Doesn't solve user problems, competitive disadvantage, poor mobile UX
+3. **Keep React Web Only**
+   - Pros: Already done, optimized for web
+   - Cons: No native apps, doesn't meet client requirement, web-only
 
-4. **Native Development (Swift + Kotlin)**
-   - Pros: Best performance, full native features, platform-optimized
-   - Cons: 2x development cost, can't reuse code, 2x maintenance, 40+ weeks
+4. **Flutter**
+   - Pros: Single codebase, excellent performance
+   - Cons: Complete rewrite, different language (Dart), lose React investment
 
-5. **Flutter**
-   - Pros: Fast development, good performance, single codebase
-   - Cons: Can't reuse React code, different ecosystem, Dart language, less mature
+5. **Progressive Web App (PWA)**
+   - Pros: Enhanced web experience, some offline support
+   - Cons: Still web-based, limited iOS support, doesn't meet client requirement
 
 ### Rationale
 
-React Native was chosen because:
-1. **Code Reusability**: 60-70% of existing React code can be reused
-2. **Native Experience**: True native UI and performance
-3. **Offline-First**: Full offline capabilities with SQLite
-4. **Device Integration**: Camera, photos, sharing, notifications
-5. **Developer Productivity**: Leverages existing React skills
-6. **Cost-Effective**: Cheaper than pure native, better ROI than PWA
-7. **App Store Presence**: Increases trust and discoverability
-8. **Future-Proof**: Mobile-first is long-term strategy
+React Native Web was chosen because:
+
+1. **Meets Client Requirement**: Only option that delivers single codebase for web + mobile ✅
+2. **Code Reusability**: Can reuse 60-70% of existing React code
+3. **Native Mobile Apps**: Delivers true native apps for iOS and Android
+4. **Team Skills**: Leverages existing React knowledge
+5. **Expo Ecosystem**: Simplifies development and deployment
+6. **Single Maintenance**: One codebase reduces long-term costs
+7. **Faster Than Separate**: 9 weeks vs 20 weeks for separate apps
+
+**Client Mandate is Decisive Factor:**
+The client's company policy requires a single codebase. This makes React Native Web the **only viable option** that:
+- Satisfies the requirement
+- Leverages existing investment
+- Delivers to all platforms
 
 ### Consequences
 
 **Positive:**
-- Superior mobile user experience
-- Full offline functionality
-- Native device feature access
-- App store distribution
-- Higher user trust and engagement
-- Competitive parity with other recipe apps
+- Single codebase for all platforms
+- Native iOS and Android apps
+- Consistent UI across platforms
+- Lower maintenance cost
+- Faster feature deployment
+- Meets client requirement ✅
 
 **Negative:**
-- Significant development investment (20 weeks, $80-120k)
-- Slower update cycle (app store review)
-- Must maintain two platforms (iOS + Android)
-- Some platform-specific code required
+- Web bundle larger (~300KB vs ~50KB)
+- Slightly slower web initial load
+- Web UI feels more mobile-like
+- Platform-specific code needed for some features
+- Team needs React Native training
 
-**Risk Mitigation:**
-1. **Cost**: Phased development reduces risk
-2. **Timeline**: 20-week detailed plan with milestones
-3. **Quality**: Extensive testing and beta program
-4. **Maintenance**: Shared codebase minimizes overhead
+**Mitigation:**
+- Code splitting for web performance
+- Platform detection for optimal UX
+- Comprehensive testing on all platforms
+- Team training on React Native patterns
 
-**Migration Timeline:**
-- Q2 2026: Development (weeks 1-13)
-- Q3 2026: Testing & Launch (weeks 14-20)
-- Web version maintained indefinitely for desktop users
+**Trade-offs Accepted:**
+- Web performance slightly worse (acceptable given requirement)
+- Desktop UX less optimized (acceptable given mobile-first use case)
+- Update process slower for mobile (mitigated by OTA updates)
 
-**Success Criteria:**
-- 1,000+ downloads in first month
-- 4.0+ star rating
-- <1% crash rate
-- 60%+ 30-day retention
+**Timeline:**
+- 9-week migration (Q2 2026)
+- Simultaneous launch on all platforms
+- Faster than separate app development (20 weeks)
+
+**Cost:**
+- Development: $50,000-$70,000
+- 50% cheaper than separate apps ($80k-120k)
+- Lower ongoing maintenance
 
 ---
 
@@ -733,164 +739,228 @@ Required modules all available in Expo:
 
 ---
 
-## ADR-010: Use SQLite for Mobile Storage
+## ADR-010: Use AsyncStorage for Mobile Storage
 
 **Date:** December 10, 2025  
 **Status:** Accepted  
-**Deciders:** Technical Lead, Mobile Developer
+**Deciders:** Technical Lead
 
 ### Context
 
-React Native apps need robust local storage for recipes that works offline and handles complex data. Requirements:
-- Store 1000+ recipes
-- Fast queries (search, filter)
-- Relational data (recipes, ingredients, categories)
-- ACID compliance
-- Minimal storage overhead
+React Native apps need local storage for recipes that works offline and across all platforms (iOS, Android, Web). Requirements:
+- Store 100-1000+ recipes
+- Work offline
+- Cross-platform compatibility
+- Simple API
+- Sufficient performance
 
 ### Decision
 
-We will use **SQLite via expo-sqlite** for primary data storage in the React Native apps.
+We will use **AsyncStorage** via `@react-native-async-storage/async-storage` for primary data storage in the React Native Web application.
 
 ### Options Considered
 
-1. **SQLite (via expo-sqlite)**
-   - Pros: Relational, ACID, fast queries, unlimited storage, no dependencies
-   - Cons: SQL learning curve, migration management, synchronous queries
+1. **AsyncStorage**
+   - Pros: Cross-platform, simple API, sufficient capacity, async, built for RN
+   - Cons: Key-value only (no queries), all operations by key, less structured
 
-2. **AsyncStorage Only**
-   - Pros: Simple API, key-value, async, good for small data
-   - Cons: Slow with large datasets, no queries, flat structure, string-only
+2. **SQLite (via expo-sqlite)**
+   - Pros: Relational, SQL queries, ACID compliance, unlimited storage
+   - Cons: Web support limited, more complex API, overkill for current needs
 
 3. **Realm Database**
-   - Pros: Fast, object-oriented, reactive queries, sync built-in
-   - Cons: Large SDK size, learning curve, MongoDB dependency for sync
+   - Pros: Fast, object-oriented, reactive queries
+   - Cons: Large SDK, web support poor, MongoDB sync not needed
 
-4. **WatermelonDB**
-   - Pros: Fast, offline-first, lazy loading, observables
-   - Cons: Complex setup, additional abstraction layer, smaller community
-
-5. **JSON Files**
-   - Pros: Simple, human-readable, easy backup
-   - Cons: Slow with large datasets, no queries, no transactions
+4. **LocalStorage (web) / AsyncStorage (mobile)**
+   - Pros: Platform native
+   - Cons: Different APIs per platform, harder to maintain
 
 ### Rationale
 
-SQLite was chosen because:
-1. **Performance**: Optimized for mobile, fast queries even with 1000+ recipes
-2. **Relational**: Perfect for recipes with ingredients, categories, tags
-3. **Proven**: Industry standard, battle-tested, reliable
-4. **Storage**: No practical size limits (can handle 100K+ recipes)
-5. **Queries**: Full SQL support for complex searches and filters
-6. **Offline-First**: No network dependency, fully local
-7. **ACID Compliance**: Data integrity guaranteed
-8. **Expo Integration**: Well-supported via expo-sqlite
+AsyncStorage was chosen because:
 
-### Database Schema
+1. **Cross-Platform**: Works on iOS, Android, and Web (React Native Web)
+2. **Simple API**: Easy to use, Promise-based, minimal learning curve
+3. **Sufficient Capacity**: Can store 100s of recipes with images (MB of data)
+4. **React Native Standard**: De facto storage solution for React Native
+5. **Async Operations**: Non-blocking, good for UI performance
+6. **Easy Migration**: Can migrate from localStorage (web) easily
+7. **Meets Current Needs**: Key-value storage is sufficient for our data model
 
-```sql
-CREATE TABLE recipes (
-  id INTEGER PRIMARY KEY,
-  title TEXT NOT NULL,
-  servings TEXT,
-  prepTime TEXT,
-  cookTime TEXT,
-  dateAdded TEXT,
-  image TEXT,
-  created_at INTEGER,
-  updated_at INTEGER
-);
+**Why Not SQLite:**
+- Current recipe data model is simple (JSON objects)
+- No need for complex queries or joins
+- Key-based retrieval is sufficient
+- Web support for SQLite is limited
+- AsyncStorage is simpler and faster to implement
 
-CREATE TABLE ingredient_sections (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  recipe_id INTEGER NOT NULL,
-  title TEXT,
-  position INTEGER,
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
-);
+**Future Consideration:**
+If we need complex queries, relationships, or very large datasets, we can migrate to SQLite later. The storage abstraction layer makes this migration straightforward.
 
-CREATE TABLE ingredients (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  section_id INTEGER NOT NULL,
-  text TEXT NOT NULL,
-  position INTEGER,
-  FOREIGN KEY (section_id) REFERENCES ingredient_sections(id) ON DELETE CASCADE
-);
+### Storage Strategy
 
-CREATE TABLE instructions (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  recipe_id INTEGER NOT NULL,
-  text TEXT NOT NULL,
-  position INTEGER,
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
-);
+**Data Model:**
+```javascript
+// Key pattern
+'recipe:{id}' → JSON stringified recipe object
 
-CREATE TABLE categories (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT UNIQUE NOT NULL
-);
+// Example
+'recipe:1702234567890' → '{"id": 1702234567890, "title": "Apple Pie", ...}'
+```
 
-CREATE TABLE recipe_categories (
-  recipe_id INTEGER,
-  category_id INTEGER,
-  PRIMARY KEY (recipe_id, category_id),
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
-  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
-);
-
-CREATE INDEX idx_recipes_title ON recipes(title);
-CREATE INDEX idx_recipes_date ON recipes(dateAdded);
-CREATE INDEX idx_ingredients_text ON ingredients(text);
+**Storage Wrapper:**
+```javascript
+export const storage = {
+  async get(key) { ... },      // Returns {key, value} or null
+  async set(key, value) { ... }, // Returns {key, value} or null
+  async delete(key) { ... },    // Returns {key, deleted: true} or null
+  async list(prefix) { ... }    // Returns {keys: [...]}
+};
 ```
 
 ### Consequences
 
 **Positive:**
-- Fast queries for search and filtering
-- Relational data modeling
-- Unlimited storage capacity
-- ACID transactions
-- Complex queries supported
-- Indexes for performance
+- Simple implementation (< 100 lines)
+- Works on all platforms
+- Fast for our use case
+- Easy to test and debug
+- Cross-platform compatible
+- Sufficient capacity
 
 **Negative:**
-- SQL learning curve for team
-- Migration management needed
-- Synchronous API (can block UI if misused)
-- Manual query building (no ORM)
+- No SQL queries (must load all, then filter in JS)
+- No relationships or joins
+- All operations by key
+- Must manage JSON serialization
+- Can't do complex searches efficiently
+
+**Mitigation:**
+- Load all recipes into memory (acceptable for 100-1000 recipes)
+- Filter and sort in JavaScript
+- Use key prefixes for organization
+- Implement simple search in-memory
 
 **Performance Expectations:**
-- Load 100 recipes: <50ms
-- Search across 1000 recipes: <100ms
-- Insert recipe: <10ms
-- Complex join queries: <200ms
+- Load 100 recipes: <100ms
+- Save recipe: <20ms
+- Delete recipe: <20ms
+- List all keys: <50ms
 
-**Data Migration Strategy:**
-1. Version database schema
-2. Write migration functions for schema changes
-3. Test migrations with production data copies
-4. Implement rollback capability
+**Capacity:**
+- AsyncStorage typically: 6MB+ per platform
+- Recipe with image: ~50-150KB
+- Capacity: 40-120 recipes conservatively
+- Sufficient for MVP and beyond
 
-**AsyncStorage Usage:**
-SQLite for structured data, AsyncStorage for:
-- User preferences
-- App settings
-- Session data
-- Cache keys
+**Future Migration Path:**
+If needs grow:
+1. Implement SQLite for structured queries
+2. Keep AsyncStorage for settings
+3. Migration utility to move data
+4. Estimated effort: 1-2 weeks
 
-**Complementary Usage:**
-```javascript
-// SQLite for recipes
-await db.executeSql('SELECT * FROM recipes WHERE title LIKE ?', ['%pasta%']);
+---
 
-// AsyncStorage for settings
-await AsyncStorage.setItem('theme', 'dark');
-```
+## ADR-011: Client Requirement - Single Codebase
 
-**Future Considerations:**
-- Add full-text search (FTS5)
-- Implement cloud sync (conflict resolution)
-- Consider Realm if real-time sync becomes priority
+**Date:** December 10, 2025  
+**Status:** Accepted  
+**Deciders:** Client Stakeholders, Technical Lead, Product Owner
+
+### Context
+
+This ADR documents a **client-mandated requirement** that fundamentally drives all technical decisions for the FamilyPlate project going forward.
+
+**Client Requirement:**
+"The application must use a single codebase that deploys to both web and mobile platforms. This is a company policy and non-negotiable."
+
+This requirement supersedes technical preferences and determines the entire migration strategy.
+
+### Decision
+
+We accept and will implement the client's requirement for a **single codebase supporting web and mobile platforms** using React Native Web with Expo.
+
+### Impact Analysis
+
+This requirement **eliminates** several otherwise viable technical approaches:
+
+**Eliminated Options:**
+- ❌ Maintain separate React web app + build React Native mobile apps
+- ❌ Keep web-only (no mobile)
+- ❌ Build Progressive Web App only
+- ❌ Use different frameworks for web vs mobile
+
+**Only Viable Options:**
+- ✅ React Native Web (Expo) - CHOSEN
+- ⚠️ Flutter (requires complete rewrite in Dart)
+
+### Rationale for React Native Web
+
+Given the single codebase requirement, React Native Web was chosen because:
+
+1. **Meets Requirement**: Single codebase deploys to iOS, Android, and Web ✅
+2. **Leverages Investment**: Can reuse 60-70% of existing React code
+3. **Team Skills**: Team knows React, not Dart (Flutter)
+4. **Ecosystem**: React Native is mature and well-supported
+5. **Expo**: Simplifies cross-platform development
+6. **Practical**: Only realistic option given constraints
+
+**Why Not Flutter:**
+- Requires complete rewrite (lose all existing code)
+- Team would need to learn Dart
+- Lose React ecosystem and tooling
+- Longer timeline (12-16 weeks for rewrite vs 9 weeks for migration)
+
+### Consequences
+
+**Positive:**
+- Clear technical direction (no ambiguity)
+- Single codebase reduces maintenance
+- Consistent features across platforms
+- Meets client requirement ✅
+- Client satisfaction
+
+**Negative (Trade-offs Accepted):**
+- Web bundle larger than pure React web app
+- Some web-specific optimizations harder
+- Platform-specific code needed for some features
+- Team needs React Native training
+
+**Non-Negotiable Constraints:**
+- Must be single codebase (not optional)
+- Must support web + mobile (iOS + Android)
+- Must meet company policy
+
+**Business Impact:**
+- Project approved by client ✅
+- Budget approved
+- Timeline accepted
+- Technical direction validated
+
+### Implementation
+
+**Approach:** React Native Web with Expo
+**Timeline:** 9 weeks (Q2 2026)
+**Cost:** $50,000-$70,000
+**Result:** Single codebase for web, iOS, and Android
+
+**Success Criteria:**
+- One codebase maintained
+- Deploys to all three platforms
+- Feature parity across platforms
+- Meets company policy requirement
+- Client satisfaction
+
+### Related Decisions
+
+This requirement directly influenced:
+- ADR-008: Migrate to React Native Web
+- ADR-009: Use Expo for React Native
+- ADR-010: Use AsyncStorage for Mobile Storage
+
+All subsequent technical decisions must align with this single codebase requirement.
 
 ---
 
@@ -984,10 +1054,18 @@ await AsyncStorage.setItem('theme', 'dark');
 
 ---
 
-## Document History
+## Changelog
+
+### Version 2.0.0 (December 10, 2025)
+- **MAJOR UPDATE:** Added ADR-011 for client single codebase requirement
+- **UPDATED:** ADR-008 changed from "Migrate to React Native" to "Migrate to React Native Web"
+- **UPDATED:** ADR-010 changed from SQLite to AsyncStorage (simpler, cross-platform)
+- Documented client mandate driving technical decisions
+- Updated all ADRs to reflect single codebase approach
+- Clarified React Native Web vs separate apps decision
 
 ### Version 1.0.0 (December 10, 2025)
 - Initial ADR document created
-- 10 architectural decisions recorded
+- 10 architectural decisions recorded (original approach)
 - Decision-making framework established
 - ADR template provided
