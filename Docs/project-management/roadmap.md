@@ -29,19 +29,33 @@ We make recipe preservation effortless through:
 
 ## Strategic Priorities (2026)
 
-### Priority 1: Mobile Excellence
-**Goal:** Deliver best-in-class mobile experience
+### Priority 1: React Native Web Migration (Q2 2026)
+**Goal:** Deliver single codebase for web + mobile platforms
 
-**Why:** 85% of users access recipes while cooking, primarily on mobile devices
+**Why:** Client requirement - company mandate for unified codebase
 
 **Key Results:**
-- Launch native iOS and Android apps by Q3 2026
-- Achieve 4.5+ star rating on app stores
-- 60%+ 30-day user retention
+- Complete migration in 9 weeks
+- Launch on iOS, Android, and Web simultaneously
+- Achieve feature parity with current web app
+- Maintain single codebase going forward
 
 ---
 
-### Priority 2: Core Feature Completion
+### Priority 2: Platform Stabilization (Q3 2026)
+**Goal:** Ensure production stability across all platforms
+
+**Why:** New platform requires careful monitoring and rapid iteration
+
+**Key Results:**
+- <1% crash rate on all platforms
+- 4.5+ star rating on app stores
+- 60%+ 30-day user retention
+- Positive user reviews
+
+---
+
+### Priority 3: Feature Enhancement (Q3-Q4 2026)
 **Goal:** Build essential recipe management features
 
 **Why:** Users need complete workflow from capture to cooking
@@ -49,19 +63,8 @@ We make recipe preservation effortless through:
 **Key Results:**
 - Shopping list with 80%+ usage rate
 - Recipe categories with 90%+ tagged recipes
-- Search functionality with <1s response time
-
----
-
-### Priority 3: Growth & Acquisition
-**Goal:** Reach 10,000 active users
-
-**Why:** Sustainable growth validates product-market fit
-
-**Key Results:**
-- 1,000 downloads in first month post-launch
-- 30% organic growth month-over-month
-- <$5 cost per acquisition
+- Advanced search with <1s response time
+- Meal planning feature launched
 
 ---
 
@@ -69,44 +72,31 @@ We make recipe preservation effortless through:
 
 ### Q1 2026 (Jan - Mar)
 
-**Theme:** Foundation & Enhancement
+**Theme:** Pre-Migration Preparation
 
-#### Web Application Improvements
-- [ ] Shopping list feature (4 weeks)
-  - Ingredient aggregation
-  - Category organization
-  - Check-off functionality
-  
-- [ ] Recipe categories (2 weeks)
-  - Predefined categories (breakfast, lunch, dinner, etc.)
-  - Custom category creation
-  - Multi-category support
-  
-- [ ] Basic search (2 weeks)
-  - Search by recipe title
-  - Search by ingredients
-  - Recent searches
+#### Documentation & Planning
+- [x] Complete React Native Web migration plan
+- [x] Update all migration documentation
+- [x] Create detailed 9-week timeline
+- [x] Architectural decision records updated
 
-- [ ] Recipe export (1 week)
-  - Export as text
-  - Export as PDF
-  - Email sharing
+#### Current Web App Maintenance
+- [ ] Fix critical bugs
+- [ ] Security updates
+- [ ] Performance monitoring
+- [ ] User feedback collection
 
-#### Infrastructure
-- [ ] Analytics implementation
-  - Google Analytics
-  - User behavior tracking
-  - Performance monitoring
-
-- [ ] Error tracking
-  - Sentry integration
-  - Crash reporting
-  - Error alerting
+#### Team Preparation
+- [ ] React Native training for team
+- [ ] Expo development environment setup
+- [ ] Review migration plan with stakeholders
+- [ ] Finalize timeline and resources
 
 **Success Metrics:**
-- 80%+ users try shopping list
-- 500+ active users
-- <1% error rate
+- All documentation complete
+- Team trained on React Native
+- Migration plan approved
+- Ready to start Q2
 
 ---
 
@@ -214,29 +204,29 @@ We make recipe preservation effortless through:
 
 ## 2027 Roadmap (High-Level)
 
-### Q1 2027: Social Features
+### Q1 2027: Advanced Features
 
 **Major Features:**
-- User profiles
-- Follow other users
-- Like and save recipes
-- Comments and ratings
-- Recipe collections
+- Recipe scaling with automatic quantity adjustment
+- Recipe import from URLs
+- Voice search capability
+- Print-optimized recipe format
+- Nutrition information calculator
 
-**Goal:** Build engaged community around recipe sharing
+**Goal:** Enhance core recipe management capabilities
 
 ---
 
-### Q2 2027: Premium Features
+### Q2 2027: Social & Sharing
 
-**Potential Premium Tier:**
-- Unlimited recipe storage
-- Advanced meal planning
-- Nutrition information
-- Recipe collaboration
-- Priority support
+**Major Features:**
+- Recipe sharing via links
+- Family groups (optional)
+- Privacy controls
+- Recipe collections
+- Like and save recipes from others
 
-**Goal:** Establish sustainable revenue stream
+**Goal:** Build community around recipe sharing
 
 ---
 
@@ -246,22 +236,23 @@ We make recipe preservation effortless through:
 - Smart recipe recommendations
 - Automatic ingredient substitutions
 - Dietary restriction filtering
-- Cooking skill level detection
-- Recipe difficulty rating
+- Cooking difficulty rating
+- Meal prep suggestions
 
 **Goal:** Leverage AI for personalized experience
 
 ---
 
-### Q4 2027: Platform Expansion
+### Q4 2027: Premium Features (Optional)
 
-**New Platforms:**
-- iPad app with optimized layout
-- Apple Watch complications
-- Widget support (iOS/Android)
-- Smart display integration (Alexa, Google Home)
+**Potential Premium Tier:**
+- Unlimited recipe storage
+- Advanced meal planning
+- Recipe collaboration
+- Priority support
+- Ad-free experience
 
-**Goal:** Be accessible wherever users cook
+**Goal:** Establish sustainable revenue stream (if needed)
 
 ---
 
@@ -310,32 +301,32 @@ We make recipe preservation effortless through:
 1. **"I need to digitize my grandmother's handwritten recipes before they're lost."**
    → AI recipe extraction (✅ Completed)
 
-2. **"I want to access my recipes while cooking, even without internet."**
-   → Offline-first mobile app (→ Q3 2026)
+2. **"I want to use the app on my phone while cooking."**
+   → React Native Web migration (→ Q2 2026)
 
-3. **"I need a shopping list based on this week's meal plan."**
-   → Shopping list + meal planning (→ Q1 2026, Q4 2026)
+3. **"I need to access my recipes without internet."**
+   → Offline-first with AsyncStorage (→ Q2 2026)
 
-4. **"I want to find recipes I can make with what's in my fridge."**
-   → Ingredient search (→ Q1 2026)
+4. **"I want a shopping list based on this week's recipes."**
+   → Shopping list feature (→ Q3 2026)
 
-5. **"I need to scale recipes for different serving sizes."**
-   → Recipe scaling (→ Q4 2026)
+5. **"I want to find recipes by category (breakfast, dinner, etc.)."**
+   → Recipe categories (→ Q3 2026)
 
-6. **"I want to share family recipes with my siblings."**
-   → Recipe sharing (→ Q4 2026)
+6. **"I need to scale recipes for different serving sizes."**
+   → Recipe scaling (→ Q4 2026 or 2027)
 
-7. **"I want to organize recipes by meal type and occasion."**
-   → Categories and tags (→ Q1 2026)
+7. **"I want to share family recipes with my siblings."**
+   → Recipe sharing (→ Q4 2026 or 2027)
 
-8. **"I need to print recipes in a clean format."**
-   → Print-friendly export (→ Backlog)
+8. **"I want my recipes in the app store like other recipe apps."**
+   → Native mobile apps (→ Q2 2026)
 
-9. **"I want to save recipes I find online."**
-   → URL import (→ Q4 2026)
+9. **"I need to search my recipes quickly."**
+   → Advanced search (→ Q4 2026)
 
-10. **"I need nutrition information for meal planning."**
-    → Nutrition calculator (→ 2027)
+10. **"I want to plan my meals for the week."**
+    → Meal planning (→ Q4 2026)
 
 ---
 
@@ -345,11 +336,12 @@ We make recipe preservation effortless through:
 
 | Metric | Q1 | Q2 | Q3 | Q4 |
 |--------|----|----|----|----|
-| **Active Users** | 500 | 1,000 | 2,500 | 5,000 |
-| **Recipes Stored** | 2,000 | 5,000 | 15,000 | 30,000 |
-| **Daily Active** | 150 | 400 | 1,000 | 2,000 |
-| **Retention (30d)** | 40% | 50% | 60% | 60% |
-| **App Store Rating** | N/A | N/A | 4.0+ | 4.5+ |
+| **Active Users** | 500 | 1,500 | 5,000 | 10,000 |
+| **Recipes Stored** | 2,000 | 7,500 | 30,000 | 60,000 |
+| **Daily Active** | 150 | 600 | 2,000 | 4,000 |
+| **Retention (30d)** | 40% | 50% | 60% | 65% |
+| **App Store Rating** | N/A | 4.0+ | 4.5+ | 4.5+ |
+| **Platform Split** | 100% Web | 60% Mobile, 40% Web | 70% Mobile, 30% Web | 75% Mobile, 25% Web |
 
 ---
 
@@ -409,11 +401,12 @@ We make recipe preservation effortless through:
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
+| **RN Web Migration Delays** | High | Medium | 9-week detailed plan, buffer time |
+| **Platform-Specific Bugs** | High | High | Continuous testing, platform detection |
 | **App Store Rejection** | High | Medium | Follow guidelines, prepare appeals |
-| **API Cost Overrun** | High | Medium | Implement caching, rate limits |
-| **Slow User Growth** | High | Medium | Marketing plan, referral program |
-| **Technical Debt** | Medium | Medium | Regular refactoring, testing |
-| **Competition** | Medium | High | Focus on unique value props |
+| **Web Performance Issues** | Medium | Medium | Optimization, code splitting |
+| **Team Learning Curve** | Medium | Medium | Training, documentation, pair programming |
+| **User Adoption (Mobile)** | Medium | Low | Marketing, app store optimization |
 
 ---
 
@@ -447,10 +440,14 @@ We make recipe preservation effortless through:
 
 | Quarter | Engineers | Designers | Product | Total |
 |---------|-----------|-----------|---------|-------|
-| **Q1 2026** | 2 | 0.5 | 0.5 | 3 FTE |
-| **Q2 2026** | 2 | 0.5 | 0.5 | 3 FTE |
-| **Q3 2026** | 2.5 | 1 | 0.5 | 4 FTE |
-| **Q4 2026** | 3 | 1 | 1 | 5 FTE |
+| **Q1 2026** | 1 | 0.25 | 0.25 | 1.5 FTE |
+| **Q2 2026** | 1.5 | 0.5 | 0.5 | 2.5 FTE |
+| **Q3 2026** | 2 | 0.5 | 0.5 | 3 FTE |
+| **Q4 2026** | 2 | 0.5 | 0.5 | 3 FTE |
+
+**Notes:**
+- Q2 increased engineering for React Native Web migration
+- Q3-Q4 sustained for feature development and platform maintenance
 
 ---
 
@@ -458,11 +455,16 @@ We make recipe preservation effortless through:
 
 | Category | Q1 | Q2 | Q3 | Q4 | Total |
 |----------|----|----|----|----|-------|
-| **Development** | $40k | $40k | $50k | $50k | $180k |
-| **Design** | $5k | $5k | $10k | $10k | $30k |
-| **Infrastructure** | $2k | $2k | $3k | $3k | $10k |
-| **Marketing** | $5k | $5k | $15k | $15k | $40k |
-| **Total** | $52k | $52k | $78k | $78k | $260k |
+| **Development** | $10k | $60k | $30k | $30k | $130k |
+| **Design** | $2k | $5k | $5k | $5k | $17k |
+| **Infrastructure** | $1k | $2k | $2k | $2k | $7k |
+| **Marketing** | $2k | $5k | $10k | $10k | $27k |
+| **Total** | $15k | $72k | $47k | $47k | $181k |
+
+**Notes:**
+- Q2 higher due to React Native Web migration (9 weeks)
+- Q3-Q4 normalized for feature development and enhancement
+- Infrastructure includes EAS Build, app store fees, hosting
 
 ---
 
@@ -470,29 +472,37 @@ We make recipe preservation effortless through:
 
 ### Launch Phases
 
-#### Phase 1: Friends & Family (Q1 2026)
-- 50 hand-picked users
-- Direct feedback collection
-- Iterate rapidly
-- Build core community
+#### Phase 1: Pre-Launch Preparation (Q1 2026)
+- Documentation complete
+- Team trained on React Native
+- Migration plan approved
+- Development environment ready
 
-#### Phase 2: Beta Launch (Q2-Q3 2026)
-- 500 beta testers via TestFlight/Play Store
-- Gather extensive feedback
-- Marketing soft launch
-- Press outreach begins
+#### Phase 2: React Native Web Migration (Q2 2026)
+- 9-week development sprint
+- Weekly milestones and checkpoints
+- Continuous testing on all platforms
+- Beta testing in final weeks
 
-#### Phase 3: Public Launch (Q3 2026)
-- App Store launch event
+#### Phase 3: Multi-Platform Launch (End of Q2 2026)
+- Simultaneous launch on web, iOS, Android
+- App Store and Play Store submissions
 - PR campaign
-- Social media advertising
-- Influencer partnerships
+- Social media promotion
+- User migration guide
 
-#### Phase 4: Growth (Q4 2026+)
-- Referral program
-- Content marketing
-- SEO optimization
-- Partnerships
+#### Phase 4: Stabilization (Q3 2026)
+- Monitor all platforms
+- Rapid bug fixes
+- User feedback collection
+- Performance optimization
+- Feature refinement
+
+#### Phase 5: Growth (Q3-Q4 2026)
+- Feature expansion
+- User acquisition campaigns
+- App store optimization
+- Community building
 
 ---
 
@@ -643,10 +653,18 @@ None at this time.
 
 ## Document History
 
+### Version 2.0.0 (December 10, 2025)
+- **MAJOR CHANGE:** Updated for React Native Web single codebase approach
+- Changed Q2 2026 from separate app development to 9-week RN Web migration
+- Updated Q3 2026 for stabilization and feature enhancement
+- Adjusted priorities to reflect client requirement
+- Updated metrics, budget, and team allocation
+- Revised launch strategy for multi-platform simultaneous release
+
 ### Version 1.0.0 (December 10, 2025)
 - Initial roadmap created
 - 2026-2027 planning established
-- Quarterly milestones defined
+- Quarterly milestones defined (separate apps approach)
 - Success metrics identified
 - Resource plan outlined
 
