@@ -1,90 +1,103 @@
-# React Native Migration Plan
+# React Native Web Migration Plan
 
 ## Overview
 
-This document outlines the strategic plan for migrating FamilyPlate from a React web application to a native mobile application using React Native. This migration will provide enhanced mobile capabilities, better performance, and access to native device features.
+This document outlines the strategic plan for migrating FamilyPlate from a React web application to a **React Native Web** application using Expo. This migration will create a single codebase that runs on web, iOS, and Android platforms.
 
-**Version:** 1.0.0  
+**Version:** 2.0.0  
 **Last Updated:** December 10, 2025  
 **Status:** Planning Phase  
-**Target Timeline:** Q2-Q3 2026
+**Target Timeline:** 9 weeks  
+**Target Completion:** Q2 2026
 
 ---
 
 ## Executive Summary
 
+### Client Requirement
+
+**Company Mandate:** Single codebase for all platforms (web + mobile)
+
+This requirement drives our decision to use **React Native Web with Expo** instead of maintaining separate codebases for web and native mobile applications.
+
 ### Migration Goals
 
-1. **Native Mobile Experience** - Deliver true native performance and UX
-2. **Offline-First Architecture** - Full functionality without internet connection
-3. **Device Integration** - Access camera, files, and native sharing
-4. **App Store Presence** - Distribute via Apple App Store and Google Play Store
-5. **Enhanced Performance** - Faster load times, smoother animations
-6. **Maintain Code Reusability** - Leverage existing React codebase
+1. **Single Codebase** - One React Native codebase for web, iOS, and Android
+2. **Native Mobile Experience** - True native performance on mobile devices
+3. **Web Compatibility** - Functional web application using React Native Web
+4. **Offline-First Architecture** - Full functionality without internet connection
+5. **Device Integration** - Access camera, files, and native sharing
+6. **Faster Time to Market** - 9 weeks vs 20 weeks for separate apps
 
 ### Key Benefits
 
 | Benefit | Impact |
 |---------|--------|
-| Native camera integration | Seamless recipe photo capture |
-| Offline storage | Use app without internet |
-| Push notifications | Remind users about meal planning |
-| Native sharing | Share recipes via iOS/Android share sheet |
-| Faster performance | Improved user experience |
-| App Store visibility | Increased discoverability |
+| Single codebase | 50% reduction in maintenance cost |
+| Faster development | 9 weeks vs 20 weeks |
+| Consistent UI | Same experience across all platforms |
+| Shared business logic | 95%+ code reuse |
+| Lower complexity | One team, one codebase |
+| Unified updates | Deploy once, update everywhere |
 
 ---
 
 ## Strategic Approach
 
-### Migration Strategy: Hybrid Development
-
-We will use **React Native with Expo** for the following reasons:
-
-1. **Code Reusability** - Reuse ~70% of existing React components
-2. **Faster Development** - Expo provides pre-built native modules
-3. **Over-the-Air Updates** - Deploy fixes without app store review
-4. **Development Speed** - Faster iteration and testing
-5. **Cross-Platform** - Single codebase for iOS and Android
-
-### Alternative Considered: Native Development
-
-**Why not pure native (Swift/Kotlin)?**
-- Would require 2x development time (separate iOS and Android teams)
-- Cannot reuse existing React codebase
-- Higher maintenance burden
-- Slower feature delivery
-
----
-
-## Technical Architecture
-
 ### Technology Stack
 
 | Component | Technology | Rationale |
 |-----------|-----------|-----------|
-| **Framework** | React Native 0.72+ | Cross-platform, React-based |
-| **Build Tool** | Expo SDK 49+ | Simplified native module access |
-| **Storage** | AsyncStorage + SQLite | Persistent, offline-capable |
-| **Navigation** | React Navigation 6 | Industry standard, flexible |
-| **State Management** | React Context + Hooks | Simple, maintainable |
-| **Image Handling** | expo-image-picker | Native camera access |
-| **HTTP Client** | Fetch API | Built-in, standard |
-| **AI Integration** | Anthropic API | Same as web version |
+| **Framework** | React Native 0.72+ | Cross-platform native development |
+| **Web Support** | React Native Web | Run RN code in browsers |
+| **Build Tool** | Expo SDK 49+ | Simplified development and builds |
+| **Storage** | AsyncStorage | Cross-platform local storage |
+| **Navigation** | React Navigation 6 | Universal navigation system |
+| **State Management** | React Context + Hooks | Simple, built-in solution |
+| **Image Handling** | expo-image-picker | Camera and photo library access |
+| **HTTP Client** | Fetch API | Native, standard |
+| **AI Integration** | Anthropic API | Same as current implementation |
 
-### Architecture Diagram
+### Why React Native Web?
+
+**Client Requirement:**
+- Single codebase mandate
+- Reduces maintenance overhead
+- Ensures consistency across platforms
+
+**Technical Benefits:**
+- Write once, run everywhere
+- Native performance on mobile
+- Acceptable performance on web
+- Shared components and logic
+- Single deployment pipeline
+
+**Trade-offs Accepted:**
+- Slightly larger web bundle (~300KB vs 50KB)
+- Web UI feels more "mobile-like"
+- Some web-specific optimizations harder
+- SEO requires extra configuration
+
+---
+
+## Architecture Diagram
 
 ```
 ┌─────────────────────────────────────────┐
-│         React Native App                │
+│     React Native Application            │
 ├─────────────────────────────────────────┤
 │                                         │
-│  ┌─────────────┐    ┌─────────────┐   │
-│  │  UI Layer   │    │ Navigation  │   │
-│  │  (Screens)  │◄───┤   Stack     │   │
-│  └─────────────┘    └─────────────┘   │
-│         │                               │
-│         ▼                               │
+│  ┌─────────────────────────────────┐   │
+│  │   React Native Components       │   │
+│  │   (View, Text, Image, etc.)     │   │
+│  └─────────────────────────────────┘   │
+│              │                          │
+│              ▼                          │
+│  ┌──────────┬──────────┬──────────┐   │
+│  │   iOS    │ Android  │   Web    │   │
+│  │  Native  │  Native  │   DOM    │   │
+│  └──────────┴──────────┴──────────┘   │
+│                                         │
 │  ┌─────────────┐    ┌─────────────┐   │
 │  │  Business   │◄──►│   Storage   │   │
 │  │   Logic     │    │   Layer     │   │
@@ -92,8 +105,8 @@ We will use **React Native with Expo** for the following reasons:
 │         │                  │            │
 │         ▼                  ▼            │
 │  ┌─────────────┐    ┌─────────────┐   │
-│  │  API Layer  │    │ AsyncStorage│   │
-│  │  (Anthropic)│    │   SQLite    │   │
+│  │  API Layer  │    │AsyncStorage │   │
+│  │  (Anthropic)│    │             │   │
 │  └─────────────┘    └─────────────┘   │
 └─────────────────────────────────────────┘
 ```
@@ -102,440 +115,965 @@ We will use **React Native with Expo** for the following reasons:
 
 ## Migration Phases
 
-### Phase 1: Foundation Setup (Weeks 1-2)
+### Phase 1: Project Setup & Foundation (Week 1)
 
-**Objective:** Establish React Native project structure
+**Objective:** Create and configure React Native Web project with Expo
 
-**Tasks:**
-1. Initialize Expo project
-2. Set up development environment
-3. Configure build tools (EAS Build)
-4. Establish folder structure
-5. Set up linting and formatting
-6. Configure TypeScript (optional)
+#### Tasks
 
-**Deliverables:**
-- Working React Native project
-- Build pipeline configured
-- Development documentation
-- Team environment setup
+**Day 1-2: Environment Setup**
+- Install Expo CLI globally
+- Create new Expo project with blank template
+- Install React Native Web dependencies
+- Configure project for all three platforms
+- Set up development environment
 
-**Success Criteria:**
-- Can run app on iOS and Android simulators
-- Can build and deploy to test devices
-- All team members have working dev environment
+**Day 3-4: Core Dependencies**
+- Install React Navigation (drawer + stack)
+- Install AsyncStorage for storage
+- Install expo-image-picker for camera
+- Install vector icons
+- Configure platform-specific settings
+
+**Day 5: Initial Testing**
+- Test web version in browser
+- Test iOS on iPhone with Expo Go
+- Set up Android emulator
+- Test hot reload on all platforms
+- Verify all platforms working
+
+#### Commands
+
+```bash
+# Install Expo CLI
+npm install -g expo-cli
+
+# Create project
+npx create-expo-app FamilyPlateNative --template blank
+cd FamilyPlateNative
+
+# Install React Native Web
+npx expo install react-native-web react-dom @expo/metro-runtime
+
+# Install navigation
+npm install @react-navigation/native @react-navigation/stack @react-navigation/drawer
+npx expo install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated
+
+# Install storage
+npx expo install @react-native-async-storage/async-storage
+
+# Install camera/images
+npx expo install expo-image-picker expo-camera
+
+# Install icons
+npm install @expo/vector-icons
+
+# Start development
+npx expo start
+```
+
+#### Deliverables
+- ✅ Working Expo project
+- ✅ Can run on web, iOS, Android
+- ✅ All core dependencies installed
+- ✅ Hot reload functional
+- ✅ Team can run locally
+
+#### Success Criteria
+- See "Hello World" on all three platforms
+- No build errors
+- Expo Go connects successfully
+- Web opens in browser without errors
 
 ---
 
-### Phase 2: Core UI Migration (Weeks 3-6)
+### Phase 2: Navigation & Screen Structure (Week 2)
 
-**Objective:** Migrate existing React components to React Native
+**Objective:** Implement complete navigation system
 
-**Priority Components:**
-1. **Navigation System** (Week 3)
-   - Hamburger menu → Drawer navigation
-   - Top bar → Header navigation
-   - Screen routing
+#### Tasks
 
-2. **Recipe Library Screen** (Week 4)
-   - Recipe card grid
-   - Recipe detail view
-   - Delete functionality
-
-3. **Upload Screen** (Week 5)
-   - Camera integration
-   - Image picker
-   - Preview screen
-
-4. **Home Screen** (Week 6)
-   - Welcome screen
-   - Quick actions
-   - Statistics display
-
-**Migration Approach:**
-
+**Navigation Setup**
 ```javascript
-// Web version (React)
-<div className="bg-white p-4 rounded-lg shadow">
-  <h2 className="text-xl font-bold">{recipe.title}</h2>
-  <img src={recipe.image} alt={recipe.title} />
-</div>
+// App.js
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 
-// React Native version
-<View style={styles.card}>
-  <Text style={styles.title}>{recipe.title}</Text>
-  <Image source={{ uri: recipe.image }} style={styles.image} />
-</View>
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+
+function MainStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
+    </Stack.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={MainStack} />
+        <Drawer.Screen name="Upload" component={UploadScreen} />
+        <Drawer.Screen name="Library" component={LibraryScreen} />
+        <Drawer.Screen name="Shopping" component={ShoppingScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+**Create Screen Components**
+- HomeScreen (welcome/stats)
+- UploadScreen (camera/upload)
+- LibraryScreen (recipe list)
+- RecipeDetailScreen (full recipe)
+- ShoppingScreen (placeholder)
+
+**Theme System**
+```javascript
+// styles/theme.js
+export const theme = {
+  colors: {
+    primary: '#EA580C',
+    secondary: '#FB923C',
+    background: '#FFF7ED',
+    card: '#FFFFFF',
+    text: '#1F2937',
+    border: '#E5E7EB',
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+  },
+  borderRadius: {
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 24,
+  },
+};
+```
+
+#### Deliverables
+- ✅ Drawer navigation working
+- ✅ Stack navigation working
+- ✅ All screens created
+- ✅ Theme system established
+- ✅ Navigation tested on all platforms
+
+---
+
+### Phase 3: Recipe Library UI (Week 3)
+
+**Objective:** Build recipe browsing and viewing interface
+
+#### Tasks
+
+**Recipe List Component**
+```javascript
+import { FlatList, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+
+const RecipeList = ({ recipes, onRecipePress }) => {
+  return (
+    <FlatList
+      data={recipes}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => onRecipePress(item)} style={styles.card}>
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <View style={styles.content}>
+            <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+            <Text style={styles.date}>{item.dateAdded}</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+      numColumns={2}
+      columnWrapperStyle={styles.row}
+      contentContainerStyle={styles.container}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
+  container: {
     padding: 16,
-    borderRadius: 8,
+  },
+  row: {
+    justifyContent: 'space-between',
+  },
+  card: {
+    width: '48%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    marginBottom: 16,
+    overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3 // Android shadow
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold'
+    elevation: 3,
   },
   image: {
     width: '100%',
-    height: 200,
-    resizeMode: 'cover'
-  }
+    height: 160,
+  },
+  content: {
+    padding: 12,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  date: {
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
 });
 ```
 
-**Deliverables:**
-- All screens migrated to React Native
-- Navigation working correctly
-- UI matches design specifications
-- Responsive layout for different devices
+**Recipe Detail Screen**
+```javascript
+import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+
+const RecipeDetailScreen = ({ route }) => {
+  const { recipe } = route.params;
+  
+  return (
+    <ScrollView style={styles.container}>
+      <Image source={{ uri: recipe.image }} style={styles.headerImage} />
+      
+      <View style={styles.content}>
+        <Text style={styles.title}>{recipe.title}</Text>
+        
+        <View style={styles.metadata}>
+          {recipe.servings && (
+            <Text style={styles.metaText}>Servings: {recipe.servings}</Text>
+          )}
+          {recipe.prepTime && (
+            <Text style={styles.metaText}>Prep: {recipe.prepTime}</Text>
+          )}
+          {recipe.cookTime && (
+            <Text style={styles.metaText}>Cook: {recipe.cookTime}</Text>
+          )}
+        </View>
+        
+        <Text style={styles.sectionTitle}>Ingredients</Text>
+        {recipe.ingredientSections.map((section, idx) => (
+          <View key={idx} style={styles.section}>
+            {section.title && (
+              <Text style={styles.sectionSubtitle}>{section.title}</Text>
+            )}
+            {section.items.map((item, i) => (
+              <Text key={i} style={styles.ingredient}>• {item}</Text>
+            ))}
+          </View>
+        ))}
+        
+        <Text style={styles.sectionTitle}>Instructions</Text>
+        {recipe.instructions.map((instruction, idx) => (
+          <View key={idx} style={styles.step}>
+            <View style={styles.stepNumber}>
+              <Text style={styles.stepNumberText}>{idx + 1}</Text>
+            </View>
+            <Text style={styles.stepText}>{instruction}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
+```
+
+**Empty State**
+```javascript
+const EmptyState = ({ onAddRecipe }) => (
+  <View style={styles.emptyContainer}>
+    <Text style={styles.emptyTitle}>No recipes yet</Text>
+    <Text style={styles.emptyText}>
+      Add your first recipe to get started
+    </Text>
+    <TouchableOpacity style={styles.button} onPress={onAddRecipe}>
+      <Text style={styles.buttonText}>Add Recipe</Text>
+    </TouchableOpacity>
+  </View>
+);
+```
+
+#### Deliverables
+- ✅ Recipe list with grid layout
+- ✅ Recipe detail view complete
+- ✅ Empty states implemented
+- ✅ Responsive on all screen sizes
+- ✅ Images loading correctly
 
 ---
 
-### Phase 3: Storage Layer (Weeks 7-8)
+### Phase 4: Camera & Upload (Week 4)
 
-**Objective:** Implement native storage solution
+**Objective:** Implement photo capture and upload functionality
 
-**Storage Strategy:**
+#### Tasks
 
-```javascript
-// Current: localStorage (web)
-await window.storage.set('recipe:123', JSON.stringify(recipe));
-
-// Future: AsyncStorage (React Native)
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-await AsyncStorage.setItem('recipe:123', JSON.stringify(recipe));
-```
-
-**For Complex Data: SQLite**
-
-```javascript
-import * as SQLite from 'expo-sqlite';
-
-const db = SQLite.openDatabase('familyplate.db');
-
-// Create tables
-db.transaction(tx => {
-  tx.executeSql(
-    `CREATE TABLE IF NOT EXISTS recipes (
-      id INTEGER PRIMARY KEY,
-      title TEXT,
-      image TEXT,
-      servings TEXT,
-      prepTime TEXT,
-      cookTime TEXT,
-      dateAdded TEXT,
-      ingredientSections TEXT,
-      instructions TEXT
-    )`
-  );
-});
-
-// Insert recipe
-db.transaction(tx => {
-  tx.executeSql(
-    'INSERT INTO recipes VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [recipe.id, recipe.title, /* ... */]
-  );
-});
-```
-
-**Migration Tasks:**
-1. Set up AsyncStorage
-2. Implement SQLite for structured data
-3. Create storage abstraction layer
-4. Migrate existing storage API
-5. Implement data migration utility
-6. Test offline functionality
-
-**Deliverables:**
-- Working storage layer
-- Data persistence functional
-- Migration from web storage
-- Unit tests for storage operations
-
----
-
-### Phase 4: Native Features Integration (Weeks 9-11)
-
-**Objective:** Leverage native device capabilities
-
-#### Camera Integration (Week 9)
-
+**Camera Integration**
 ```javascript
 import * as ImagePicker from 'expo-image-picker';
+import { Platform } from 'react-native';
 
-const takePicture = async () => {
-  // Request camera permission
-  const { status } = await ImagePicker.requestCameraPermissionsAsync();
+const UploadScreen = () => {
+  const [image, setImage] = useState(null);
   
-  if (status !== 'granted') {
-    alert('Camera permission required');
-    return;
+  const requestPermissions = async () => {
+    if (Platform.OS !== 'web') {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Camera permission is required to take photos');
+        return false;
+      }
+    }
+    return true;
+  };
+  
+  const takePicture = async () => {
+    const hasPermission = await requestPermissions();
+    if (!hasPermission) return;
+    
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+    
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+  
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+    
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+  
+  return (
+    <View style={styles.container}>
+      {!image ? (
+        <View style={styles.uploadOptions}>
+          <TouchableOpacity style={styles.option} onPress={takePicture}>
+            <Text style={styles.optionText}>📷 Take Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.option} onPress={pickImage}>
+            <Text style={styles.optionText}>🖼️ Choose from Library</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <PreviewScreen image={image} onRetake={() => setImage(null)} />
+      )}
+    </View>
+  );
+};
+```
+
+**Platform-Specific Handling**
+```javascript
+import { Platform } from 'react-native';
+
+const CameraButton = () => {
+  if (Platform.OS === 'web') {
+    return (
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleWebUpload}
+        style={{ display: 'none' }}
+        ref={fileInputRef}
+      />
+    );
   }
   
-  // Launch camera
-  const result = await ImagePicker.launchCameraAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 0.8
-  });
-  
-  if (!result.canceled) {
-    setPreviewImage(result.assets[0].uri);
-  }
+  return (
+    <TouchableOpacity onPress={takePicture}>
+      <Text>Take Photo</Text>
+    </TouchableOpacity>
+  );
 };
 ```
 
-#### Native Sharing (Week 10)
-
-```javascript
-import * as Sharing from 'expo-sharing';
-
-const shareRecipe = async (recipe) => {
-  // Create shareable text
-  const text = `
-${recipe.title}
-
-Ingredients:
-${recipe.ingredientSections.map(s => 
-  s.items.join('\n')
-).join('\n')}
-
-Instructions:
-${recipe.instructions.map((inst, i) => 
-  `${i + 1}. ${inst}`
-).join('\n')}
-  `;
-  
-  // Share via native share sheet
-  await Sharing.shareAsync(text);
-};
-```
-
-#### File System Access (Week 11)
-
-```javascript
-import * as FileSystem from 'expo-file-system';
-
-// Save image to device
-const saveImageToDevice = async (uri, filename) => {
-  const path = `${FileSystem.documentDirectory}${filename}`;
-  await FileSystem.copyAsync({
-    from: uri,
-    to: path
-  });
-  return path;
-};
-
-// Export recipes as JSON
-const exportRecipes = async (recipes) => {
-  const json = JSON.stringify(recipes, null, 2);
-  const path = `${FileSystem.documentDirectory}recipes-backup.json`;
-  await FileSystem.writeAsStringAsync(path, json);
-  
-  // Share file
-  await Sharing.shareAsync(path);
-};
-```
-
-**Deliverables:**
-- Native camera integration
-- Photo library access
-- Native sharing functionality
-- File import/export
-- Permission handling
+#### Deliverables
+- ✅ Camera working on iOS/Android
+- ✅ File picker working on web
+- ✅ Image preview functional
+- ✅ Platform differences handled
+- ✅ Permissions managed correctly
 
 ---
 
-### Phase 5: API Integration (Weeks 12-13)
+### Phase 5: Storage Layer (Week 5)
+
+**Objective:** Implement cross-platform data persistence
+
+#### Tasks
+
+**AsyncStorage Wrapper**
+```javascript
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const storage = {
+  async get(key) {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      return value ? { key, value } : null;
+    } catch (e) {
+      console.error('Storage get error:', e);
+      return null;
+    }
+  },
+  
+  async set(key, value) {
+    try {
+      await AsyncStorage.setItem(key, value);
+      return { key, value };
+    } catch (e) {
+      console.error('Storage set error:', e);
+      return null;
+    }
+  },
+  
+  async delete(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+      return { key, deleted: true };
+    } catch (e) {
+      console.error('Storage delete error:', e);
+      return null;
+    }
+  },
+  
+  async list(prefix) {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const filtered = keys.filter(k => k.startsWith(prefix));
+      return { keys: filtered };
+    } catch (e) {
+      console.error('Storage list error:', e);
+      return { keys: [] };
+    }
+  },
+};
+```
+
+**Recipe Management**
+```javascript
+export const RecipeService = {
+  async loadAllRecipes() {
+    const result = await storage.list('recipe:');
+    const recipes = [];
+    
+    for (const key of result.keys) {
+      const data = await storage.get(key);
+      if (data && data.value) {
+        recipes.push(JSON.parse(data.value));
+      }
+    }
+    
+    return recipes.sort((a, b) => b.id - a.id);
+  },
+  
+  async saveRecipe(recipe) {
+    const key = `recipe:${recipe.id}`;
+    const value = JSON.stringify(recipe);
+    return await storage.set(key, value);
+  },
+  
+  async deleteRecipe(id) {
+    return await storage.delete(`recipe:${id}`);
+  },
+};
+```
+
+**Data Migration from Web**
+```javascript
+export const migrateFromLocalStorage = async () => {
+  // For web platform only
+  if (Platform.OS !== 'web') return;
+  
+  try {
+    // Check if localStorage has data
+    const keys = Object.keys(localStorage).filter(k => k.startsWith('recipe:'));
+    
+    for (const key of keys) {
+      const value = localStorage.getItem(key);
+      await AsyncStorage.setItem(key, value);
+    }
+    
+    return { migrated: keys.length };
+  } catch (e) {
+    console.error('Migration error:', e);
+    return { migrated: 0 };
+  }
+};
+```
+
+#### Deliverables
+- ✅ AsyncStorage wrapper complete
+- ✅ CRUD operations working
+- ✅ Data persists across sessions
+- ✅ Works on all platforms
+- ✅ Migration utility ready
+
+---
+
+### Phase 6: API Integration (Week 6)
 
 **Objective:** Connect to Anthropic API for recipe extraction
 
-**API Layer Migration:**
+#### Tasks
 
+**API Client**
 ```javascript
-// Create API client
-class AnthropicClient {
-  constructor(apiKey) {
-    this.apiKey = apiKey;
-    this.baseURL = 'https://api.anthropic.com/v1/messages';
-  }
-  
+import * as FileSystem from 'expo-file-system';
+
+export const AnthropicAPI = {
   async extractRecipe(imageUri) {
-    // Read image as base64
-    const base64 = await FileSystem.readAsStringAsync(imageUri, {
-      encoding: FileSystem.EncodingType.Base64
-    });
+    try {
+      // Convert image to base64
+      const base64 = await FileSystem.readAsStringAsync(imageUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      
+      // Call Vercel serverless function
+      const response = await fetch('YOUR_VERCEL_URL/api/extract-recipe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: base64,
+          type: 'image/jpeg',
+          prompt: `Extract this recipe as JSON with these fields: title, servings, prepTime, cookTime, ingredientSections, instructions.
+
+Format:
+{
+  "title": "Recipe Name",
+  "servings": "4",
+  "prepTime": "15 minutes",
+  "cookTime": "30 minutes", 
+  "ingredientSections": [
+    {"title": "Ingredients", "items": ["item 1", "item 2"]}
+  ],
+  "instructions": ["step 1", "step 2"]
+}
+
+Return only valid JSON, no markdown.`,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      // Parse response
+      const text = data.content.find(i => i.type === 'text').text
+        .replace(/```json\n?/g, '')
+        .replace(/```/g, '')
+        .trim();
+      
+      return JSON.parse(text);
+    } catch (error) {
+      console.error('Recipe extraction error:', error);
+      throw error;
+    }
+  },
+};
+```
+
+**Loading States**
+```javascript
+const [loading, setLoading] = useState(false);
+const [progress, setProgress] = useState('');
+
+const extractRecipe = async (imageUri) => {
+  setLoading(true);
+  setProgress('Analyzing image...');
+  
+  try {
+    const extracted = await AnthropicAPI.extractRecipe(imageUri);
     
-    // Call API
-    const response = await fetch(this.baseURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'x-api-key': this.apiKey
+    setProgress('Creating recipe...');
+    const recipe = {
+      id: Date.now(),
+      ...extracted,
+      image: imageUri,
+      dateAdded: new Date().toLocaleDateString(),
+    };
+    
+    await RecipeService.saveRecipe(recipe);
+    setProgress('Complete!');
+    
+    // Navigate to recipe
+    navigation.navigate('RecipeDetail', { recipe });
+  } catch (error) {
+    Alert.alert('Error', 'Failed to extract recipe: ' + error.message);
+  } finally {
+    setLoading(false);
+    setProgress('');
+  }
+};
+```
+
+#### Deliverables
+- ✅ API integration working
+- ✅ Recipe extraction functional
+- ✅ Loading indicators implemented
+- ✅ Error handling complete
+- ✅ End-to-end flow working
+
+---
+
+### Phase 7: UI Polish & Animations (Week 7)
+
+**Objective:** Polish user interface and add smooth animations
+
+#### Tasks
+
+**Animations**
+```javascript
+import { Animated } from 'react-native';
+
+const FadeInView = ({ children, delay = 0 }) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 300,
+      delay,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+  
+  return (
+    <Animated.View style={{ opacity: fadeAnim }}>
+      {children}
+    </Animated.View>
+  );
+};
+```
+
+**Platform-Specific Styles**
+```javascript
+import { Platform, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        messages: [{
-          role: 'user',
-          content: [
-            {
-              type: 'image',
-              source: {
-                type: 'base64',
-                media_type: 'image/jpeg',
-                data: base64
-              }
-            },
-            {
-              type: 'text',
-              text: 'Extract recipe as JSON...'
-            }
-          ]
-        }]
-      })
-    });
+      android: {
+        elevation: 3,
+      },
+      web: {
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      },
+    }),
+  },
+});
+```
+
+**Responsive Design**
+```javascript
+import { useWindowDimensions } from 'react-native';
+
+const RecipeList = () => {
+  const { width } = useWindowDimensions();
+  
+  // Responsive columns
+  const numColumns = width > 1024 ? 4 : width > 768 ? 3 : 2;
+  const cardWidth = (width - (numColumns + 1) * 16) / numColumns;
+  
+  return (
+    <FlatList
+      data={recipes}
+      numColumns={numColumns}
+      key={numColumns} // Force re-render on column change
+      renderItem={({ item }) => (
+        <View style={[styles.card, { width: cardWidth }]}>
+          {/* ... */}
+        </View>
+      )}
+    />
+  );
+};
+```
+
+#### Deliverables
+- ✅ Smooth animations
+- ✅ Platform-appropriate styling
+- ✅ Responsive layouts
+- ✅ Touch feedback
+- ✅ Polish throughout
+
+---
+
+### Phase 8: Testing & Bug Fixes (Week 8)
+
+**Objective:** Comprehensive testing and issue resolution
+
+#### Tasks
+
+**Test Matrix**
+
+| Platform | Device | Test Cases |
+|----------|--------|------------|
+| **iOS** | iPhone (Expo Go) | Camera, storage, navigation, UI |
+| **Android** | Emulator | Camera, storage, navigation, UI |
+| **Web** | Chrome | File upload, storage, navigation, responsive |
+| **Web** | Safari | Compatibility, storage |
+| **Web** | Firefox | Compatibility |
+
+**Unit Tests**
+```javascript
+// __tests__/storage.test.js
+import { storage } from '../utils/storage';
+
+describe('Storage', () => {
+  beforeEach(async () => {
+    await AsyncStorage.clear();
+  });
+  
+  test('should save and retrieve data', async () => {
+    await storage.set('test', 'value');
+    const result = await storage.get('test');
+    expect(result.value).toBe('value');
+  });
+  
+  test('should list keys with prefix', async () => {
+    await storage.set('recipe:1', 'data1');
+    await storage.set('recipe:2', 'data2');
+    await storage.set('other:1', 'data3');
     
-    return await response.json();
+    const result = await storage.list('recipe:');
+    expect(result.keys.length).toBe(2);
+  });
+});
+```
+
+**Integration Tests**
+```javascript
+// __tests__/recipeFlow.test.js
+describe('Recipe Flow', () => {
+  test('should create and retrieve recipe', async () => {
+    const recipe = {
+      id: 123,
+      title: 'Test Recipe',
+      ingredients: ['flour', 'water'],
+      instructions: ['mix', 'bake'],
+    };
+    
+    await RecipeService.saveRecipe(recipe);
+    const recipes = await RecipeService.loadAllRecipes();
+    
+    expect(recipes[0].title).toBe('Test Recipe');
+  });
+});
+```
+
+#### Deliverables
+- ✅ All platforms tested
+- ✅ Critical bugs fixed
+- ✅ Unit tests passing
+- ✅ Integration tests passing
+- ✅ Performance acceptable
+
+---
+
+### Phase 9: Deployment (Week 9)
+
+**Objective:** Deploy to production on all platforms
+
+#### Web Deployment
+
+```bash
+# Build for web
+npx expo export --platform web
+
+# The output will be in the dist/ folder
+# Deploy dist/ folder to Vercel
+```
+
+**Vercel Configuration**
+```json
+{
+  "buildCommand": "npx expo export --platform web",
+  "outputDirectory": "dist",
+  "framework": null
+}
+```
+
+#### iOS Build
+
+```bash
+# Set up EAS Build (first time)
+npm install -g eas-cli
+eas login
+eas build:configure
+
+# Build for iOS
+eas build --platform ios --profile production
+
+# Submit to App Store
+eas submit --platform ios
+```
+
+#### Android Build
+
+```bash
+# Build for Android
+eas build --platform android --profile production
+
+# Submit to Play Store
+eas submit --platform android
+```
+
+**EAS Configuration (eas.json)**
+```json
+{
+  "build": {
+    "production": {
+      "node": "18.0.0",
+      "ios": {
+        "buildConfiguration": "Release",
+        "scheme": "FamilyPlate"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "your-app-id",
+        "appleTeamId": "your-team-id"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "production"
+      }
+    }
   }
 }
 ```
 
-**Security Considerations:**
-- Store API key securely (Expo SecureStore)
-- Implement request rate limiting
-- Handle network errors gracefully
-- Add retry logic for failed requests
-
-**Deliverables:**
-- API client implementation
-- Recipe extraction working
-- Error handling
-- Loading states
-- Network connectivity detection
-
----
-
-### Phase 6: Polish & Testing (Weeks 14-16)
-
-**Objective:** Refine UX and ensure quality
-
-**Tasks:**
-
-1. **Performance Optimization** (Week 14)
-   - Optimize list rendering with FlatList
-   - Implement image caching
-   - Reduce bundle size
-   - Lazy load screens
-
-2. **UX Polish** (Week 15)
-   - Smooth animations (react-native-reanimated)
-   - Haptic feedback
-   - Loading skeletons
-   - Empty states
-   - Error messages
-
-3. **Testing** (Week 16)
-   - Unit tests (Jest)
-   - Component tests (React Native Testing Library)
-   - E2E tests (Detox)
-   - Manual QA on real devices
-
-**Deliverables:**
-- Optimized performance
-- Polished UI/UX
-- Comprehensive test suite
-- Bug-free experience
-
----
-
-### Phase 7: Beta Release (Week 17)
-
-**Objective:** Release to beta testers
-
-**Tasks:**
-1. Set up TestFlight (iOS)
-2. Set up Google Play Internal Testing (Android)
-3. Recruit beta testers
-4. Gather feedback
-5. Fix critical issues
-6. Iterate based on feedback
-
-**Success Metrics:**
-- 50+ beta testers
-- <5% crash rate
-- 4+ star average rating
-- Positive qualitative feedback
-
----
-
-### Phase 8: Production Release (Week 18-20)
-
-**Objective:** Launch on app stores
-
-**Pre-Launch Checklist:**
-- [ ] App Store submission requirements met
-- [ ] Privacy policy published
-- [ ] Terms of service created
-- [ ] App store screenshots prepared
-- [ ] App store descriptions written
-- [ ] Support email set up
-- [ ] Analytics configured
-- [ ] Crash reporting enabled
-- [ ] Final QA passed
-- [ ] Marketing materials ready
-
-**Launch Day:**
-1. Submit to App Store (iOS)
-2. Submit to Play Store (Android)
-3. Announce on social media
-4. Send email to beta testers
-5. Monitor crash reports
-6. Respond to reviews
+#### Deliverables
+- ✅ Web deployed to Vercel
+- ✅ iOS build complete
+- ✅ Android build complete
+- ✅ All platforms in production
 
 ---
 
 ## Code Reusability Analysis
 
-### Directly Reusable (~40%)
+### Directly Reusable from Current App (~60%)
 
-These can be migrated with minimal changes:
+These can be migrated with adaptation to React Native:
 
 - Business logic functions
 - Data models and types
-- API integration code
-- Storage abstraction layer
-- Utility functions (date formatting, etc.)
+- API integration logic (with fetch)
+- Recipe extraction prompts
+- Storage abstraction pattern
+- Image compression logic
 
-### Requires Adaptation (~30%)
+### Requires React Native Adaptation (~35%)
 
-These need React Native equivalents:
+UI components need React Native equivalents:
 
-- UI components (div → View, img → Image)
-- Styling (CSS → StyleSheet)
-- Routing (React Router → React Navigation)
-- Local storage (localStorage → AsyncStorage)
+**Mapping:**
+```javascript
+// Web (Current)          →  React Native
+<div>                     →  <View>
+<span>, <p>               →  <Text>
+<img>                     →  <Image>
+<button>                  →  <TouchableOpacity> + <Text>
+<input type="file">       →  <ImagePicker>
+className="..."           →  style={styles...}
+onClick                   →  onPress
+```
 
-### Requires Rewrite (~30%)
+### Platform-Specific (~5%)
 
-These are platform-specific:
+Different implementation per platform:
 
-- Camera integration
-- File system access
-- Native sharing
-- Push notifications
-- App lifecycle management
+- Camera (mobile) vs File picker (web)
+- Navigation gestures
+- Status bar handling
+- Storage optimization
+- Platform-specific styling
+
+---
+
+## Timeline & Milestones
+
+### 9-Week Detailed Schedule
+
+| Week | Focus | Deliverable |
+|------|-------|-------------|
+| **Week 1** | Setup | Working project on all platforms |
+| **Week 2** | Navigation | All screens navigable |
+| **Week 3** | Recipe List | Library UI complete |
+| **Week 4** | Camera | Photo capture working |
+| **Week 5** | Storage | Data persistence functional |
+| **Week 6** | API | Recipe extraction working |
+| **Week 7** | Polish | Animations and responsive design |
+| **Week 8** | Testing | All bugs fixed, tests passing |
+| **Week 9** | Deploy | Live on web, iOS, Android |
+
+---
+
+## Success Criteria
+
+### Technical Metrics
+
+- [ ] App loads in <2 seconds on all platforms
+- [ ] <1% crash rate
+- [ ] 60 FPS animations on mobile
+- [ ] Offline functionality working
+- [ ] All current features implemented
+
+### Business Metrics
+
+- [ ] Single codebase maintained
+- [ ] 1,000+ downloads in first month
+- [ ] 4+ star average rating
+- [ ] 60%+ 30-day retention
+- [ ] Positive user reviews
 
 ---
 
@@ -545,19 +1083,17 @@ These are platform-specific:
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
-| **API Key Security** | High | Use Expo SecureStore, implement backend proxy |
-| **Performance Issues** | High | Early performance testing, optimization sprints |
-| **Platform Differences** | Medium | Test on both platforms continuously |
-| **App Store Rejection** | High | Follow guidelines strictly, prepare appeals |
-| **Data Migration** | Medium | Thorough testing, rollback plan |
+| **Web performance** | Medium | Optimize bundle, lazy loading |
+| **Platform differences** | Medium | Test continuously, platform-specific code |
+| **App Store rejection** | High | Follow guidelines strictly |
+| **Learning curve** | Medium | Team training, documentation |
 
 ### Mitigation Strategies
 
-1. **Security:** Implement backend API proxy to hide API key
-2. **Performance:** Profile early and often, use native components
-3. **Platform Differences:** Use platform-specific code where necessary
-4. **App Store:** Follow all guidelines, prepare detailed submissions
-5. **Data Migration:** Test migration with real user data, provide rollback
+1. **Web Performance:** Code splitting, lazy loading, bundle optimization
+2. **Platform Testing:** Test on real devices weekly
+3. **App Store:** Follow all guidelines, prepare appeals
+4. **Team Training:** React Native workshops, pair programming
 
 ---
 
@@ -568,58 +1104,41 @@ These are platform-specific:
 | Role | Allocation | Responsibilities |
 |------|-----------|------------------|
 | **React Native Developer** | 1 FTE | Core development |
-| **UI/UX Designer** | 0.5 FTE | Mobile UI design |
-| **QA Engineer** | 0.5 FTE | Testing |
-| **DevOps Engineer** | 0.25 FTE | Build pipeline, deployment |
+| **UI/UX Designer** | 0.3 FTE | Mobile UI design |
+| **QA Engineer** | 0.5 FTE | Testing all platforms |
+| **DevOps** | 0.2 FTE | EAS Build, deployment |
 
 ### Infrastructure
 
 - **Expo EAS Build:** $29/month (priority builds)
-- **TestFlight:** Free (Apple Developer)
-- **Google Play Internal Testing:** Free
-- **Crash Reporting:** Free tier (Sentry)
-- **Analytics:** Free tier (Firebase)
+- **Vercel Hosting:** Free tier (web)
+- **Apple Developer:** $99/year
+- **Google Play:** $25 one-time
+- **Testing Devices:** iPhone + Android (existing)
 
 ### Total Cost Estimate
 
-- Development: $80,000 - $120,000 (20 weeks)
-- Infrastructure: $500/year
-- App Store Fees: $99/year (Apple) + $25 one-time (Google)
+**Development:** $50,000 - $70,000 (9 weeks)
+**Infrastructure:** ~$500/year
+**Total Year 1:** $50,500 - $70,500
+
+**Compared to separate apps:** $80,000 - $120,000 (20 weeks)
+**Savings:** $29,500 - $49,500 (38-41% cost reduction)
 
 ---
 
-## Success Criteria
+## Post-Launch Maintenance
 
-### Technical Metrics
-
-- [ ] App loads in <2 seconds
-- [ ] <1% crash rate
-- [ ] 60 FPS animations
-- [ ] Offline functionality working
-- [ ] 100% of web features implemented
-
-### Business Metrics
-
-- [ ] 1,000+ downloads in first month
-- [ ] 4+ star average rating
-- [ ] <10% uninstall rate
-- [ ] 50%+ daily active users
-- [ ] Positive user reviews
-
----
-
-## Maintenance Plan
-
-### Post-Launch Support
+### Ongoing Support
 
 **Weeks 1-4 (Critical):**
-- Daily monitoring of crash reports
+- Daily crash monitoring
 - Quick fixes for critical bugs
-- Respond to all app store reviews
-- Hot-fix deployments via OTA updates
+- Respond to app store reviews
+- OTA updates for minor fixes
 
 **Months 2-3 (Stabilization):**
-- Weekly updates addressing feedback
+- Weekly updates
 - Performance improvements
 - Feature enhancements
 - Bug fixes
@@ -638,14 +1157,27 @@ These are platform-specific:
 - [Migration Timeline](./timeline.md)
 - [Architecture Overview](../architecture/overview.md)
 - [API Documentation](../api/overview.md)
+- [Architectural Decisions](../project-management/decisions.md)
 
 ---
 
 ## Changelog
 
+### Version 2.0.0 (December 10, 2025)
+- **MAJOR CHANGE:** Updated for React Native Web approach
+- Changed from separate apps (20 weeks) to single codebase (9 weeks)
+- Updated all code examples for React Native
+- Revised timeline and cost estimates
+- Added platform-specific guidance
+- Client requirement documented (single codebase mandate)
+
 ### Version 1.0.0 (December 10, 2025)
-- Initial React Native migration plan
-- 8-phase migration strategy defined
-- Risk assessment completed
+- Initial React Native migration plan (separate apps approach)
+
+---
+
+**Document Status:** ✅ Complete and aligned with client requirements
+**Next Review:** After Phase 1 completion
 - Resource requirements estimated
+
 - Timeline established (20 weeks)
