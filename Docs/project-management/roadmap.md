@@ -112,60 +112,64 @@ We make recipe preservation effortless through:
 
 ### Q2 2026 (Apr - Jun)
 
-**Theme:** Mobile Foundation
+**Theme:** React Native Web Migration
 
-#### React Native Migration - Phase 1
-- [ ] Development environment setup (2 weeks)
-- [ ] Core UI migration (4 weeks)
-- [ ] Storage layer implementation (2 weeks)
-- [ ] Navigation system (1 week)
+#### React Native Web Development (9 weeks)
+- [ ] Week 1: Project setup and foundation
+- [ ] Week 2: Navigation system
+- [ ] Week 3: Recipe library UI
+- [ ] Week 4: Camera and upload
+- [ ] Week 5: Storage layer
+- [ ] Week 6: API integration
+- [ ] Week 7: UI polish and animations
+- [ ] Week 8: Testing and bug fixes
+- [ ] Week 9: Deployment to all platforms
 
-#### Web Maintenance
-- [ ] Performance optimization
-- [ ] Bug fixes from Q1
-- [ ] Security updates
+#### Deliverables
+- Single codebase for web + mobile
+- Native iOS app
+- Native Android app
+- Web application
+- All current features migrated
 
 **Success Metrics:**
-- Alpha build on TestFlight
-- 50+ internal testers
-- Core features working offline
+- App runs on all three platforms
+- 1,000+ downloads in first month
+- 4.0+ star rating
+- <1% crash rate
+- Single codebase successfully maintained
 
 ---
 
 ### Q3 2026 (Jul - Sep)
 
-**Theme:** Mobile Launch
+**Theme:** Stabilization & Enhancement
 
-#### React Native Migration - Phase 2
-- [ ] Native features integration (3 weeks)
-  - Camera
-  - Photo library
-  - Native sharing
-  
-- [ ] API integration (2 weeks)
-  - Recipe extraction
-  - Error handling
-  - Offline queue
+#### Post-Launch Support (Months 1-3)
+- [ ] Monitor crash reports and fix bugs
+- [ ] Respond to app store reviews
+- [ ] Performance optimization
+- [ ] User feedback implementation
+- [ ] OTA updates for minor fixes
 
-- [ ] Polish & testing (3 weeks)
-  - UI/UX refinement
-  - Performance optimization
-  - Comprehensive QA
+#### New Feature Development
+- [ ] Shopping list feature (4 weeks)
+  - Ingredient aggregation from recipes
+  - Category organization
+  - Check-off functionality
+  - Share list feature
 
-- [ ] Beta testing (2 weeks)
-  - 100+ beta testers
-  - Feedback collection
-  - Issue resolution
-
-- [ ] App Store launch (2 weeks)
-  - iOS App Store
-  - Google Play Store
-  - Marketing campaign
+- [ ] Recipe categories (2 weeks)
+  - Predefined categories
+  - Custom category creation
+  - Multi-category tagging
 
 **Success Metrics:**
-- 1,000+ downloads in first month
-- 4.0+ star rating
-- <1% crash rate
+- 5,000+ total users
+- 4.5+ star rating
+- 60%+ 30-day retention
+- <0.5% crash rate
+- 80%+ users try shopping list
 
 ---
 
