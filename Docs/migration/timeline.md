@@ -1,919 +1,862 @@
-# Migration Timeline
+# React Native Web Migration Timeline
 
 ## Overview
 
-This document provides a detailed week-by-week timeline for migrating FamilyPlate from a React web application to a React Native mobile application. The timeline accounts for development, testing, and deployment activities across a 20-week period.
+This document provides a detailed week-by-week timeline for migrating FamilyPlate from a React web application to a React Native Web application using Expo. This timeline reflects the single codebase approach required by the client.
 
-**Version:** 1.0.0  
+**Version:** 2.0.0  
 **Last Updated:** December 10, 2025  
 **Status:** Planning  
-**Total Duration:** 20 weeks (5 months)  
+**Total Duration:** 9 weeks  
 **Target Start:** Q2 2026  
-**Target Launch:** Q3 2026
+**Target Completion:** Q2 2026
 
 ---
 
 ## Timeline Summary
 
-| Phase | Duration | Key Deliverable |
-|-------|----------|----------------|
-| **Phase 1: Foundation** | Weeks 1-2 | Project setup complete |
-| **Phase 2: Core UI** | Weeks 3-6 | All screens migrated |
-| **Phase 3: Storage** | Weeks 7-8 | Data persistence working |
-| **Phase 4: Native Features** | Weeks 9-11 | Camera, sharing integrated |
-| **Phase 5: API Integration** | Weeks 12-13 | Recipe extraction working |
-| **Phase 6: Polish** | Weeks 14-16 | Production-ready quality |
-| **Phase 7: Beta** | Week 17 | Beta testing complete |
-| **Phase 8: Launch** | Weeks 18-20 | App store launch |
+| Week | Phase | Key Deliverable | Status |
+|------|-------|----------------|--------|
+| **Week 1** | Project Setup | Expo project running on all platforms | Planned |
+| **Week 2** | Navigation | All screens navigable | Planned |
+| **Week 3** | Recipe Library UI | Library and detail views complete | Planned |
+| **Week 4** | Camera & Upload | Photo capture working | Planned |
+| **Week 5** | Storage Layer | Data persistence functional | Planned |
+| **Week 6** | API Integration | Recipe extraction working | Planned |
+| **Week 7** | UI Polish | Animations and responsive design | Planned |
+| **Week 8** | Testing & QA | All platforms tested, bugs fixed | Planned |
+| **Week 9** | Deployment | Live on web, iOS, Android | Planned |
 
 ---
 
 ## Detailed Weekly Breakdown
 
-### Week 1: Project Initialization
+### Week 1: Project Setup & Foundation
 
-**Objective:** Set up development environment and project structure
+**Dates:** TBD (Q2 2026)  
+**Objective:** Create and configure React Native Web project with Expo
 
-**Monday:**
-- [ ] Install Expo CLI
+#### Monday: Environment Setup
+
+**Tasks:**
+- [ ] Install Node.js (verify version 18+)
+- [ ] Install Expo CLI globally
 - [ ] Create new Expo project
 - [ ] Initialize Git repository
 - [ ] Set up project structure
 
-**Tuesday:**
-- [ ] Configure ESLint and Prettier
-- [ ] Set up EditorConfig
-- [ ] Install required dependencies
-- [ ] Configure environment variables
+**Commands:**
+```bash
+# Check Node version
+node --version  # Should be 18+ 
 
-**Wednesday:**
-- [ ] Set up EAS Build
-- [ ] Configure iOS build
-- [ ] Configure Android build
-- [ ] Test builds on simulators
+# Install Expo CLI
+npm install -g expo-cli
 
-**Thursday:**
-- [ ] Create component library structure
-- [ ] Set up navigation skeleton
-- [ ] Configure React Navigation
-- [ ] Create base theme/styles
+# Create project
+npx create-expo-app FamilyPlateNative --template blank
+cd FamilyPlateNative
 
-**Friday:**
-- [ ] Team kickoff meeting
-- [ ] Development environment verification
-- [ ] Sprint planning for Week 2
-- [ ] Documentation setup
+# Initialize git
+git init
+git add .
+git commit -m "Initial Expo project setup"
+```
 
-**Deliverables:**
-- ✅ Working React Native project
-- ✅ Build pipeline configured
-- ✅ All devs can run app locally
-- ✅ Base folder structure established
+**Success Criteria:**
+- ✅ Expo project created
+- ✅ Can run `npx expo start`
+- ✅ Git initialized
 
 ---
 
-### Week 2: Foundation & Setup
+#### Tuesday: Install Dependencies
 
-**Objective:** Complete infrastructure and tooling setup
-
-**Monday:**
-- [ ] Configure TypeScript (optional)
-- [ ] Set up testing infrastructure (Jest)
-- [ ] Install React Native Testing Library
-- [ ] Write first test
-
-**Tuesday:**
-- [ ] Set up CI/CD pipeline
-- [ ] Configure GitHub Actions
-- [ ] Automated testing on commit
-- [ ] Build verification
-
-**Wednesday:**
-- [ ] Design system implementation
-- [ ] Color palette
-- [ ] Typography scale
-- [ ] Spacing system
-
-**Thursday:**
-- [ ] Create reusable components
-- [ ] Button component
-- [ ] Card component
-- [ ] Input component
-
-**Friday:**
-- [ ] Code review of foundation
-- [ ] Team sync
-- [ ] Sprint planning for Week 3
-- [ ] Risk assessment
-
-**Deliverables:**
-- ✅ Testing infrastructure working
-- ✅ CI/CD pipeline operational
-- ✅ Design system documented
-- ✅ Core components library
-
----
-
-### Week 3: Navigation System
-
-**Objective:** Implement app navigation and routing
-
-**Monday:**
-- [ ] Install React Navigation dependencies
-- [ ] Configure navigation container
-- [ ] Create stack navigator
-- [ ] Define screen structure
-
-**Tuesday:**
-- [ ] Implement drawer navigation (hamburger menu)
-- [ ] Style drawer navigation
-- [ ] Add navigation icons
-- [ ] Configure drawer items
-
-**Wednesday:**
-- [ ] Create top bar component
-- [ ] Add navigation header
-- [ ] Configure header buttons
-- [ ] Test navigation flow
-
-**Thursday:**
-- [ ] Implement deep linking (optional)
-- [ ] Configure navigation state persistence
-- [ ] Add navigation transitions
-- [ ] Test on iOS and Android
-
-**Friday:**
-- [ ] Navigation code review
-- [ ] Write navigation tests
-- [ ] Documentation
-- [ ] Sprint retrospective
-
-**Deliverables:**
-- ✅ Full navigation system working
-- ✅ Drawer menu functional
-- ✅ All screens accessible
-- ✅ Tests passing
-
----
-
-### Week 4: Recipe Library Screen
-
-**Objective:** Migrate recipe library UI
-
-**Monday:**
-- [ ] Create RecipeLibrary screen component
-- [ ] Build recipe card component
-- [ ] Implement grid layout (FlatList)
-- [ ] Add empty state
-
-**Tuesday:**
-- [ ] Implement recipe filtering
-- [ ] Add search functionality
-- [ ] Sort options
-- [ ] Test with mock data
-
-**Wednesday:**
-- [ ] Create RecipeDetail screen
-- [ ] Display recipe information
-- [ ] Ingredient sections
-- [ ] Instructions list
-
-**Thursday:**
-- [ ] Add delete functionality
-- [ ] Confirmation dialog
-- [ ] Update UI after deletion
-- [ ] Error handling
-
-**Friday:**
-- [ ] Polish UI/UX
-- [ ] Write component tests
-- [ ] Code review
-- [ ] Sprint planning Week 5
-
-**Deliverables:**
-- ✅ Recipe library screen complete
-- ✅ Recipe detail screen complete
-- ✅ CRUD operations working
-- ✅ Tests passing
-
----
-
-### Week 5: Upload Screen
-
-**Objective:** Implement photo upload functionality
-
-**Monday:**
-- [ ] Create UploadScreen component
-- [ ] Design upload UI
-- [ ] Add placeholder for camera
-- [ ] File picker integration
-
-**Tuesday:**
-- [ ] Install expo-image-picker
-- [ ] Implement image selection
-- [ ] Test on iOS
-- [ ] Test on Android
-
-**Wednesday:**
-- [ ] Create preview screen
-- [ ] Display selected image
-- [ ] Retake/confirm buttons
-- [ ] Image compression
-
-**Thursday:**
-- [ ] Implement image cropping (optional)
-- [ ] Add image filters (optional)
-- [ ] Polish UI
-- [ ] Error handling
-
-**Friday:**
-- [ ] Testing on real devices
-- [ ] Permission handling
-- [ ] Code review
-- [ ] Sprint retrospective
-
-**Deliverables:**
-- ✅ Upload screen functional
-- ✅ Image selection working
-- ✅ Preview screen complete
-- ✅ Permissions handled
-
----
-
-### Week 6: Home Screen
-
-**Objective:** Create engaging home screen
-
-**Monday:**
-- [ ] Design home screen layout
-- [ ] Create HomeScreen component
-- [ ] Add app branding
-- [ ] Welcome message
-
-**Tuesday:**
-- [ ] Display recipe statistics
-- [ ] Recent recipes section
-- [ ] Quick action buttons
-- [ ] Navigation shortcuts
-
-**Wednesday:**
-- [ ] Add onboarding flow (optional)
-- [ ] First-time user experience
-- [ ] Tutorial screens
-- [ ] Skip functionality
-
-**Thursday:**
-- [ ] Polish animations
-- [ ] Loading states
-- [ ] Error states
-- [ ] Empty states
-
-**Friday:**
-- [ ] Full UI review
-- [ ] All screens tested
-- [ ] Code review
-- [ ] Milestone celebration 🎉
-
-**Deliverables:**
-- ✅ Home screen complete
-- ✅ All UI screens migrated
-- ✅ Navigation flows tested
-- ✅ Ready for storage integration
-
----
-
-### Week 7: Storage Implementation
-
-**Objective:** Implement data persistence layer
-
-**Monday:**
+**Tasks:**
+- [ ] Install React Native Web
+- [ ] Install React Navigation
 - [ ] Install AsyncStorage
-- [ ] Create storage utility module
-- [ ] Implement get/set/delete methods
-- [ ] Write unit tests
+- [ ] Install image picker
+- [ ] Install vector icons
 
-**Tuesday:**
-- [ ] Install expo-sqlite
-- [ ] Design database schema
-- [ ] Create tables
-- [ ] Write migration script
+**Commands:**
+```bash
+# React Native Web
+npx expo install react-native-web react-dom @expo/metro-runtime
 
-**Wednesday:**
-- [ ] Implement recipe CRUD operations
-- [ ] Save recipe to database
-- [ ] Load recipes from database
-- [ ] Update recipe
+# Navigation
+npm install @react-navigation/native @react-navigation/stack @react-navigation/drawer
+npx expo install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated
 
-**Thursday:**
-- [ ] Implement data migration from web
-- [ ] Export from localStorage
-- [ ] Import to native storage
-- [ ] Validate migration
+# Storage
+npx expo install @react-native-async-storage/async-storage
 
-**Friday:**
-- [ ] Test storage performance
-- [ ] Edge case handling
-- [ ] Code review
-- [ ] Sprint planning Week 8
+# Camera/Images
+npx expo install expo-image-picker expo-camera expo-file-system
 
-**Deliverables:**
-- ✅ Storage layer complete
-- ✅ Database operational
-- ✅ CRUD operations working
-- ✅ Data migration tested
+# Icons
+npm install @expo/vector-icons
+
+# Other utilities
+npx expo install expo-status-bar
+```
+
+**Success Criteria:**
+- ✅ All dependencies installed
+- ✅ No installation errors
+- ✅ package.json updated
 
 ---
 
-### Week 8: Storage Optimization
+#### Wednesday: Configure Platforms
 
-**Objective:** Optimize and test storage layer
+**Tasks:**
+- [ ] Configure app.json for all platforms
+- [ ] Set up iOS configuration
+- [ ] Set up Android configuration
+- [ ] Set up web configuration
+- [ ] Test platform detection
 
-**Monday:**
-- [ ] Implement caching strategy
-- [ ] Optimize database queries
-- [ ] Add indexing
-- [ ] Performance testing
+**app.json Configuration:**
+```json
+{
+  "expo": {
+    "name": "FamilyPlate",
+    "slug": "familyplate",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF7ED"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.familyplate.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "FamilyPlate needs access to your camera to capture recipe photos.",
+        "NSPhotoLibraryUsageDescription": "FamilyPlate needs access to your photo library to select recipe photos."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFF7ED"
+      },
+      "package": "com.familyplate.app",
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    }
+  }
+}
+```
 
-**Tuesday:**
-- [ ] Implement data sync logic
-- [ ] Conflict resolution
-- [ ] Offline queue
-- [ ] Sync indicators
-
-**Wednesday:**
-- [ ] Add data backup feature
-- [ ] Export to JSON
-- [ ] Import from JSON
-- [ ] Cloud backup (optional)
-
-**Thursday:**
-- [ ] Test offline functionality
-- [ ] Airplane mode testing
-- [ ] Data integrity tests
-- [ ] Error recovery
-
-**Friday:**
-- [ ] Storage documentation
-- [ ] Integration tests
-- [ ] Code review
-- [ ] Sprint retrospective
-
-**Deliverables:**
-- ✅ Optimized storage layer
-- ✅ Offline support complete
-- ✅ Backup/restore working
-- ✅ Comprehensive tests
+**Success Criteria:**
+- ✅ app.json configured
+- ✅ Platform-specific settings in place
+- ✅ Permissions declared
 
 ---
 
-### Week 9: Camera Integration
+#### Thursday: Test All Platforms
 
-**Objective:** Implement native camera functionality
+**Tasks:**
+- [ ] Test web in browser
+- [ ] Test iOS on iPhone with Expo Go
+- [ ] Set up Android emulator
+- [ ] Test Android on emulator
+- [ ] Verify hot reload works
 
-**Monday:**
+**Commands:**
+```bash
+# Start Expo dev server
+npx expo start
+
+# Then press:
+# 'w' for web
+# 'i' for iOS simulator (Mac only)
+# 'a' for Android emulator
+
+# For iPhone with Expo Go:
+# Scan QR code with camera app
+```
+
+**Success Criteria:**
+- ✅ See "Hello World" on web
+- ✅ App running on iPhone via Expo Go
+- ✅ App running on Android emulator
+- ✅ Hot reload working on all platforms
+
+---
+
+#### Friday: Sprint Review & Planning
+
+**Tasks:**
+- [ ] Team review of Week 1 progress
+- [ ] Demo app on all three platforms
+- [ ] Document any setup issues
+- [ ] Plan Week 2 tasks
+- [ ] Git commit and push
+
+**Deliverables:**
+- ✅ Working Expo project
+- ✅ Runs on web, iOS, Android
+- ✅ All dependencies installed
+- ✅ Team can run locally
+- ✅ Documentation updated
+
+---
+
+### Week 2: Navigation & Screen Structure
+
+**Objective:** Implement complete navigation system with all screens
+
+#### Monday-Tuesday: Navigation Setup
+
+**Tasks:**
+- [ ] Set up NavigationContainer
+- [ ] Create Drawer Navigator (hamburger menu)
+- [ ] Create Stack Navigator
+- [ ] Configure navigation options
+- [ ] Test navigation on all platforms
+
+**Implementation:**
+```javascript
+// App.js
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#EA580C',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Upload" component={UploadScreen} />
+        <Drawer.Screen name="Library" component={LibraryScreen} />
+        <Drawer.Screen name="Shopping" component={ShoppingScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+---
+
+#### Wednesday-Thursday: Create Screen Components
+
+**Tasks:**
+- [ ] Create HomeScreen component
+- [ ] Create UploadScreen component
+- [ ] Create LibraryScreen component
+- [ ] Create RecipeDetailScreen component
+- [ ] Create ShoppingScreen component (placeholder)
+
+**Screen Templates:**
+```javascript
+// screens/HomeScreen.js
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function HomeScreen({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to FamilyPlate</Text>
+      <Text style={styles.subtitle}>Preserve your family recipes</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF7ED',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#EA580C',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#6B7280',
+  },
+});
+```
+
+---
+
+#### Friday: Theme System & Review
+
+**Tasks:**
+- [ ] Create theme configuration
+- [ ] Define colors, spacing, typography
+- [ ] Apply theme to all screens
+- [ ] Test navigation flow
+- [ ] Sprint review
+
+**Theme System:**
+```javascript
+// constants/theme.js
+export const theme = {
+  colors: {
+    primary: '#EA580C',
+    secondary: '#FB923C',
+    background: '#FFF7ED',
+    card: '#FFFFFF',
+    text: '#1F2937',
+    textSecondary: '#6B7280',
+    border: '#E5E7EB',
+    success: '#10B981',
+    error: '#EF4444',
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+  },
+  borderRadius: {
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 24,
+  },
+  typography: {
+    title: {
+      fontSize: 32,
+      fontWeight: 'bold',
+    },
+    heading: {
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
+    subheading: {
+      fontSize: 18,
+      fontWeight: '600',
+    },
+    body: {
+      fontSize: 16,
+    },
+    caption: {
+      fontSize: 14,
+    },
+  },
+};
+```
+
+**Deliverables:**
+- ✅ Navigation system complete
+- ✅ All screens created
+- ✅ Theme system established
+- ✅ Navigation tested on all platforms
+
+---
+
+### Week 3: Recipe Library UI
+
+**Objective:** Build recipe browsing and viewing interface
+
+#### Monday-Tuesday: Recipe List Component
+
+**Tasks:**
+- [ ] Create RecipeCard component
+- [ ] Create RecipeList with FlatList
+- [ ] Implement grid layout (2 columns mobile, 3+ web)
+- [ ] Add empty state
+- [ ] Mock data for testing
+
+**Implementation:**
+```javascript
+// components/RecipeCard.js
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { theme } from '../constants/theme';
+
+export default function RecipeCard({ recipe, onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.card}>
+      <Image source={{ uri: recipe.image }} style={styles.image} />
+      <View style={styles.content}>
+        <Text style={styles.title} numberOfLines={2}>{recipe.title}</Text>
+        <Text style={styles.date}>{recipe.dateAdded}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: theme.colors.card,
+    borderRadius: theme.borderRadius.lg,
+    marginBottom: theme.spacing.md,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  image: {
+    width: '100%',
+    height: 160,
+  },
+  content: {
+    padding: theme.spacing.md,
+  },
+  title: {
+    ...theme.typography.subheading,
+    marginBottom: theme.spacing.xs,
+  },
+  date: {
+    ...theme.typography.caption,
+    color: theme.colors.textSecondary,
+  },
+});
+```
+
+---
+
+#### Wednesday-Thursday: Recipe Detail Screen
+
+**Tasks:**
+- [ ] Create RecipeDetailScreen layout
+- [ ] Display recipe image
+- [ ] Show ingredients list
+- [ ] Show instructions
+- [ ] Add delete button
+- [ ] Test navigation to detail
+
+**Detail Screen Structure:**
+- Header image (full width)
+- Recipe title
+- Metadata (servings, prep time, cook time)
+- Ingredients sections
+- Instructions with step numbers
+- Delete button
+
+---
+
+#### Friday: Testing & Polish
+
+**Tasks:**
+- [ ] Test recipe list responsiveness
+- [ ] Test detail screen on all platforms
+- [ ] Add loading states (skeletons)
+- [ ] Test with 0, 1, 10, 100+ recipes
+- [ ] Sprint review
+
+**Deliverables:**
+- ✅ Recipe list with grid layout
+- ✅ Recipe detail view complete
+- ✅ Empty states
+- ✅ Responsive on all sizes
+- ✅ Loading states
+
+---
+
+### Week 4: Camera & Upload
+
+**Objective:** Implement photo capture and upload functionality
+
+#### Monday-Tuesday: Camera Integration
+
+**Tasks:**
 - [ ] Request camera permissions
-- [ ] Handle permission denials
-- [ ] iOS permission setup
-- [ ] Android permission setup
-
-**Tuesday:**
-- [ ] Implement camera launch
-- [ ] expo-image-picker configuration
-- [ ] Camera options (front/back)
+- [ ] Implement takePicture function
+- [ ] Implement pickImage function
+- [ ] Handle platform differences (web vs native)
 - [ ] Test on real devices
 
-**Wednesday:**
-- [ ] Implement photo library access
-- [ ] Browse photos
-- [ ] Select multiple (optional)
-- [ ] Test permissions
+---
 
-**Thursday:**
-- [ ] Image optimization
-- [ ] Resize images
-- [ ] Compress images
-- [ ] Format conversion
+#### Wednesday-Thursday: Image Preview & Compression
 
-**Friday:**
-- [ ] Camera UI polish
-- [ ] Error handling
-- [ ] Testing
-- [ ] Sprint planning Week 10
-
-**Deliverables:**
-- ✅ Camera fully functional
-- ✅ Photo library access working
-- ✅ Permissions handled correctly
-- ✅ Image optimization complete
+**Tasks:**
+- [ ] Create PreviewScreen
+- [ ] Show captured image
+- [ ] Add retake/confirm buttons
+- [ ] Implement image compression
+- [ ] Test image quality
 
 ---
 
-### Week 10: Native Sharing
+#### Friday: Upload Flow Testing
 
-**Objective:** Implement native sharing capabilities
-
-**Monday:**
-- [ ] Install expo-sharing
-- [ ] Implement basic sharing
-- [ ] Share recipe as text
-- [ ] Test on iOS and Android
-
-**Tuesday:**
-- [ ] Share recipe with image
-- [ ] Format recipe for sharing
-- [ ] Include all details
-- [ ] Test various share targets
-
-**Wednesday:**
-- [ ] Implement export features
-- [ ] Export as PDF (optional)
-- [ ] Export as image
-- [ ] Email integration
-
-**Thursday:**
-- [ ] Social media sharing
-- [ ] Pre-formatted content
-- [ ] Hashtags and handles
-- [ ] Track shares (analytics)
-
-**Friday:**
-- [ ] Sharing UI polish
-- [ ] Testing
-- [ ] Code review
-- [ ] Sprint retrospective
+**Tasks:**
+- [ ] Test camera on iOS
+- [ ] Test camera on Android  
+- [ ] Test file picker on web
+- [ ] End-to-end upload flow
+- [ ] Sprint review
 
 **Deliverables:**
-- ✅ Native sharing working
-- ✅ Multiple share formats
-- ✅ Export functionality complete
-- ✅ Tests passing
+- ✅ Camera working on mobile
+- ✅ File picker working on web
+- ✅ Image preview functional
+- ✅ Platform differences handled
+- ✅ Permissions managed
 
 ---
 
-### Week 11: File System & Native Features
+### Week 5: Storage Layer
 
-**Objective:** Implement remaining native features
+**Objective:** Implement cross-platform data persistence
 
-**Monday:**
-- [ ] Install expo-file-system
-- [ ] Implement file operations
-- [ ] Save to device
-- [ ] Read from device
+#### Monday-Tuesday: AsyncStorage Wrapper
 
-**Tuesday:**
-- [ ] Implement haptic feedback
-- [ ] expo-haptics integration
-- [ ] Tactile responses
-- [ ] Test on devices
-
-**Wednesday:**
-- [ ] Push notifications setup (optional)
-- [ ] Configure push certificates
-- [ ] Test notification delivery
-- [ ] Handle notification taps
-
-**Thursday:**
-- [ ] Biometric authentication (optional)
-- [ ] Face ID / Touch ID
-- [ ] Fallback to PIN
-- [ ] Test on devices
-
-**Friday:**
-- [ ] Native features polish
-- [ ] Comprehensive testing
-- [ ] Code review
-- [ ] Sprint planning Week 12
-
-**Deliverables:**
-- ✅ File system access working
-- ✅ Haptics implemented
-- ✅ Optional features complete
-- ✅ All tests passing
+**Tasks:**
+- [ ] Create storage utility module
+- [ ] Implement get/set/delete/list methods
+- [ ] Add error handling
+- [ ] Write unit tests
+- [ ] Test on all platforms
 
 ---
 
-### Week 12: API Client Setup
+#### Wednesday-Thursday: Recipe CRUD Operations
 
-**Objective:** Implement Anthropic API integration
-
-**Monday:**
-- [ ] Create API client module
-- [ ] Configure API endpoints
-- [ ] Set up authentication
-- [ ] Implement rate limiting
-
-**Tuesday:**
-- [ ] Implement image upload to API
-- [ ] Convert image to base64
-- [ ] Send to Anthropic API
-- [ ] Handle responses
-
-**Wednesday:**
-- [ ] Parse API responses
-- [ ] Extract recipe data
-- [ ] Handle errors
-- [ ] Retry logic
-
-**Thursday:**
-- [ ] Implement request queue
-- [ ] Offline request storage
-- [ ] Sync when online
-- [ ] Progress indicators
-
-**Friday:**
-- [ ] API integration testing
-- [ ] Error scenarios
-- [ ] Code review
-- [ ] Sprint retrospective
-
-**Deliverables:**
-- ✅ API client complete
-- ✅ Image upload working
-- ✅ Response parsing functional
-- ✅ Error handling robust
+**Tasks:**
+- [ ] Create RecipeService
+- [ ] Implement loadAllRecipes
+- [ ] Implement saveRecipe
+- [ ] Implement deleteRecipe
+- [ ] Implement updateRecipe
+- [ ] Integration tests
 
 ---
 
-### Week 13: Recipe Extraction
+#### Friday: Data Migration & Testing
 
-**Objective:** Complete recipe extraction feature
-
-**Monday:**
-- [ ] Integrate API with upload flow
-- [ ] Connect camera → API → storage
-- [ ] End-to-end testing
-- [ ] Fix integration issues
-
-**Tuesday:**
-- [ ] Implement loading states
-- [ ] Progress indicators
-- [ ] Skeleton screens
-- [ ] Animations
-
-**Wednesday:**
-- [ ] Add manual editing
-- [ ] Edit extracted recipe
-- [ ] Fix OCR errors
-- [ ] Save changes
-
-**Thursday:**
-- [ ] Implement recipe templates
-- [ ] Common recipe formats
-- [ ] Quick fill options
-- [ ] Validation
-
-**Friday:**
-- [ ] Recipe extraction polish
-- [ ] Full feature testing
-- [ ] Code review
-- [ ] Sprint planning Week 14
-
-**Deliverables:**
-- ✅ Recipe extraction complete
-- ✅ End-to-end flow working
-- ✅ Manual editing functional
-- ✅ Tests passing
-
----
-
-### Week 14: Performance Optimization
-
-**Objective:** Optimize app performance
-
-**Monday:**
-- [ ] Profile app performance
-- [ ] Identify bottlenecks
-- [ ] Measure frame rates
-- [ ] Memory usage analysis
-
-**Tuesday:**
-- [ ] Optimize FlatList rendering
-- [ ] Implement virtualization
-- [ ] Memoize components
-- [ ] Reduce re-renders
-
-**Wednesday:**
-- [ ] Image loading optimization
-- [ ] Implement caching
-- [ ] Lazy loading
-- [ ] Progressive loading
-
-**Thursday:**
-- [ ] Bundle size optimization
-- [ ] Remove unused dependencies
-- [ ] Code splitting
-- [ ] Tree shaking
-
-**Friday:**
+**Tasks:**
+- [ ] Create migration utility (localStorage → AsyncStorage)
+- [ ] Test with large datasets (100+ recipes)
+- [ ] Test offline functionality
 - [ ] Performance testing
-- [ ] Benchmark results
-- [ ] Code review
-- [ ] Sprint retrospective
+- [ ] Sprint review
 
 **Deliverables:**
-- ✅ 60 FPS scrolling
-- ✅ <2s app startup
-- ✅ Reduced bundle size
-- ✅ Improved memory usage
+- ✅ AsyncStorage wrapper complete
+- ✅ CRUD operations working
+- ✅ Data persists across sessions
+- ✅ Works on all platforms
+- ✅ Unit tests passing
 
 ---
 
-### Week 15: UX Polish
+### Week 6: API Integration
 
-**Objective:** Refine user experience
+**Objective:** Connect to Anthropic API for recipe extraction
 
-**Monday:**
-- [ ] Implement animations
-- [ ] react-native-reanimated setup
-- [ ] Screen transitions
-- [ ] Micro-interactions
+#### Monday-Tuesday: API Client
 
-**Tuesday:**
-- [ ] Add loading skeletons
-- [ ] Shimmer effects
-- [ ] Content placeholders
-- [ ] Progressive loading
+**Tasks:**
+- [ ] Create AnthropicAPI module
+- [ ] Implement extractRecipe method
+- [ ] Handle image to base64 conversion
+- [ ] Call Vercel serverless function
+- [ ] Parse JSON response
 
-**Wednesday:**
-- [ ] Improve empty states
-- [ ] Helpful messaging
-- [ ] Call-to-action buttons
-- [ ] Illustrations (optional)
+---
 
-**Thursday:**
-- [ ] Error message polish
-- [ ] User-friendly errors
-- [ ] Recovery suggestions
-- [ ] Support links
+#### Wednesday-Thursday: Extraction Flow
 
-**Friday:**
-- [ ] UX review
-- [ ] Team feedback
-- [ ] Iteration
-- [ ] Sprint planning Week 16
+**Tasks:**
+- [ ] Integrate API with upload flow
+- [ ] Add loading states
+- [ ] Handle errors gracefully
+- [ ] Test with various recipe types
+- [ ] Test with poor quality images
+
+---
+
+#### Friday: End-to-End Testing
+
+**Tasks:**
+- [ ] Test full flow: camera → extract → save
+- [ ] Test with 10+ different recipes
+- [ ] Error handling tests
+- [ ] Network failure tests
+- [ ] Sprint review
+
+**Deliverables:**
+- ✅ API integration working
+- ✅ Recipe extraction functional
+- ✅ Loading states implemented
+- ✅ Error handling complete
+- ✅ End-to-end flow tested
+
+---
+
+### Week 7: UI Polish & Animations
+
+**Objective:** Polish user interface and add smooth animations
+
+#### Monday-Tuesday: Animations
+
+**Tasks:**
+- [ ] Add fade-in animations
+- [ ] Add list item animations
+- [ ] Add navigation transitions
+- [ ] Implement skeleton loaders
+- [ ] Test 60 FPS on mobile
+
+---
+
+#### Wednesday-Thursday: Responsive Design
+
+**Tasks:**
+- [ ] Handle different screen sizes
+- [ ] Tablet layouts (3-4 column grid)
+- [ ] Desktop layouts (web)
+- [ ] Test on various devices
+- [ ] Platform-specific styling
+
+---
+
+#### Friday: Final Polish
+
+**Tasks:**
+- [ ] Color and spacing refinements
+- [ ] Typography consistency
+- [ ] Touch target sizes (44px minimum)
+- [ ] Accessibility review
+- [ ] Sprint review
 
 **Deliverables:**
 - ✅ Smooth animations
-- ✅ Polished loading states
-- ✅ Great empty states
-- ✅ Clear error messages
+- ✅ Platform-appropriate styling
+- ✅ Responsive layouts
+- ✅ 60 FPS performance
+- ✅ Polished appearance
 
 ---
 
-### Week 16: Testing & QA
+### Week 8: Testing & Bug Fixes
 
-**Objective:** Comprehensive testing and bug fixes
+**Objective:** Comprehensive testing and issue resolution
 
-**Monday:**
-- [ ] Unit test coverage review
-- [ ] Write missing tests
-- [ ] Achieve 80%+ coverage
-- [ ] Fix failing tests
+#### Monday: Platform Testing
 
-**Tuesday:**
-- [ ] Integration testing
-- [ ] End-to-end flows
-- [ ] Cross-screen interactions
-- [ ] Data persistence
+**Test Matrix:**
+- [ ] iOS - iPhone (Expo Go) - All features
+- [ ] Android - Emulator - All features
+- [ ] Web - Chrome - All features
+- [ ] Web - Safari - Compatibility
+- [ ] Web - Firefox - Compatibility
 
-**Wednesday:**
-- [ ] Manual QA testing
-- [ ] Test on multiple devices
-- [ ] iOS testing
-- [ ] Android testing
+---
 
-**Thursday:**
-- [ ] Bug fixing day
-- [ ] Triage issues
-- [ ] Fix critical bugs
+#### Tuesday-Wednesday: Bug Fixing
+
+**Tasks:**
+- [ ] Triage all found issues
+- [ ] Fix critical bugs (crashes, data loss)
+- [ ] Fix high priority bugs (broken features)
+- [ ] Fix medium priority bugs (UX issues)
 - [ ] Retest fixes
 
-**Friday:**
-- [ ] Final QA review
-- [ ] Sign-off checklist
-- [ ] Code freeze preparation
-- [ ] Sprint retrospective
+---
 
-**Deliverables:**
-- ✅ 80%+ test coverage
-- ✅ All critical bugs fixed
-- ✅ Tested on real devices
-- ✅ Ready for beta
+#### Thursday: Unit & Integration Tests
+
+**Tasks:**
+- [ ] Write unit tests for storage
+- [ ] Write unit tests for API client
+- [ ] Write integration tests for recipe flow
+- [ ] Achieve 70%+ test coverage
+- [ ] All tests passing
 
 ---
 
-### Week 17: Beta Testing
+#### Friday: Final QA & Sign-off
 
-**Objective:** Release to beta testers and gather feedback
-
-**Monday:**
-- [ ] Set up TestFlight (iOS)
-- [ ] Upload iOS build
-- [ ] Add beta testers
-- [ ] Send invitations
-
-**Tuesday:**
-- [ ] Set up Google Play Internal Testing
-- [ ] Upload Android build
-- [ ] Add beta testers
-- [ ] Send invitations
-
-**Wednesday:**
-- [ ] Monitor crash reports
-- [ ] Review feedback
-- [ ] Triage issues
-- [ ] Plan fixes
-
-**Thursday:**
-- [ ] Implement feedback
-- [ ] Fix reported bugs
-- [ ] Push updates
-- [ ] Re-test
-
-**Friday:**
-- [ ] Beta review meeting
-- [ ] Feedback analysis
-- [ ] Go/no-go decision
-- [ ] Sprint planning Week 18
+**Tasks:**
+- [ ] Full regression testing
+- [ ] Performance testing
+- [ ] Load testing (100+ recipes)
+- [ ] Final bug fixes
+- [ ] Sign-off for production
 
 **Deliverables:**
-- ✅ 50+ beta testers
-- ✅ Feedback collected
-- ✅ Critical issues fixed
-- ✅ Launch readiness assessed
+- ✅ All platforms tested
+- ✅ Critical bugs fixed
+- ✅ Tests passing
+- ✅ Performance acceptable
+- ✅ Production ready
 
 ---
 
-### Week 18: Pre-Launch Preparation
+### Week 9: Deployment
 
-**Objective:** Prepare for app store submission
+**Objective:** Deploy to production on all platforms
 
-**Monday:**
-- [ ] App Store listing preparation
-- [ ] Write app description
-- [ ] Keywords research
-- [ ] Privacy policy
+#### Monday: Web Deployment
 
-**Tuesday:**
-- [ ] Create app screenshots
-- [ ] iOS screenshots (multiple sizes)
-- [ ] Android screenshots
-- [ ] Feature graphics
+**Tasks:**
+- [ ] Build web version (`npx expo export --platform web`)
+- [ ] Deploy to Vercel
+- [ ] Configure domain
+- [ ] Test production build
+- [ ] Monitor errors
 
-**Wednesday:**
-- [ ] Record app preview video
-- [ ] Edit video
-- [ ] Add captions
-- [ ] Compress for upload
+**Commands:**
+```bash
+# Build for web
+npx expo export --platform web
 
-**Thursday:**
-- [ ] Final build preparation
-- [ ] Version bump
-- [ ] Release notes
-- [ ] Build production apps
-
-**Friday:**
-- [ ] Internal launch review
-- [ ] Final checks
-- [ ] Submission preparation
-- [ ] Marketing materials ready
-
-**Deliverables:**
-- ✅ App store listings complete
-- ✅ Screenshots ready
-- ✅ Videos ready
-- ✅ Production builds ready
+# Upload dist/ folder to Vercel
+# Or connect GitHub repo for auto-deploy
+```
 
 ---
 
-### Week 19: App Store Submission
+#### Tuesday: iOS Build
 
-**Objective:** Submit to app stores
+**Tasks:**
+- [ ] Set up EAS Build
+- [ ] Configure iOS credentials
+- [ ] Build iOS app (`eas build --platform ios`)
+- [ ] Test build on TestFlight
+- [ ] Submit to App Store
 
-**Monday:**
-- [ ] Submit to Apple App Store
-- [ ] Upload build
-- [ ] Fill out metadata
-- [ ] Submit for review
+**Commands:**
+```bash
+# Set up EAS
+npm install -g eas-cli
+eas login
+eas build:configure
 
-**Tuesday:**
-- [ ] Submit to Google Play Store
-- [ ] Upload build
-- [ ] Fill out metadata
-- [ ] Submit for review
+# Build
+eas build --platform ios --profile production
 
-**Wednesday:**
-- [ ] Monitor review status
-- [ ] Respond to reviewer questions
-- [ ] Make requested changes
-- [ ] Resubmit if needed
-
-**Thursday:**
-- [ ] Prepare for approval
-- [ ] Test production builds
-- [ ] Verify in-app purchases (if any)
-- [ ] Check analytics setup
-
-**Friday:**
-- [ ] Launch communications prep
-- [ ] Press release draft
-- [ ] Social media posts
-- [ ] Email to users
-
-**Deliverables:**
-- ✅ Submitted to both stores
-- ✅ Awaiting approval
-- ✅ Launch plan ready
-- ✅ Communications prepared
+# Submit
+eas submit --platform ios
+```
 
 ---
 
-### Week 20: Launch & Monitoring
+#### Wednesday: Android Build
 
-**Objective:** Launch app and monitor performance
+**Tasks:**
+- [ ] Configure Android credentials
+- [ ] Build Android app (`eas build --platform android`)
+- [ ] Test build internally
+- [ ] Submit to Play Store
 
-**Monday (Launch Day):**
-- [ ] Confirm app store approval
-- [ ] Set app live
-- [ ] Post social media announcements
-- [ ] Send email to beta testers
+**Commands:**
+```bash
+# Build
+eas build --platform android --profile production
 
-**Tuesday:**
-- [ ] Monitor crash reports
-- [ ] Review user feedback
-- [ ] Track downloads
-- [ ] Respond to reviews
+# Submit
+eas submit --platform android
+```
 
-**Wednesday:**
-- [ ] Analyze metrics
-- [ ] User acquisition
-- [ ] Retention rates
-- [ ] Crash rates
+---
 
-**Thursday:**
-- [ ] Hot-fix deployment (if needed)
-- [ ] Address critical issues
-- [ ] Push OTA update
-- [ ] Communicate fixes
+#### Thursday: Monitoring & Documentation
 
-**Friday:**
-- [ ] Week 1 retrospective
-- [ ] Celebrate launch 🎉
-- [ ] Plan next iteration
-- [ ] Roadmap review
+**Tasks:**
+- [ ] Set up crash reporting (Sentry)
+- [ ] Set up analytics
+- [ ] Create user documentation
+- [ ] Create support materials
+- [ ] Monitor initial usage
+
+---
+
+#### Friday: Launch & Celebration
+
+**Tasks:**
+- [ ] Announce launch (social media, email)
+- [ ] Monitor app store reviews
+- [ ] Respond to user feedback
+- [ ] Fix any critical issues
+- [ ] Team celebration 🎉
 
 **Deliverables:**
-- ✅ App live on both stores
-- ✅ Launch communications sent
+- ✅ Web live on Vercel
+- ✅ iOS in App Store
+- ✅ Android in Play Store
 - ✅ Monitoring in place
-- ✅ Success metrics tracked
+- ✅ Launch complete
 
 ---
 
 ## Milestones & Gates
 
-### Milestone 1: Foundation Complete (End of Week 2)
+### Milestone 1: Foundation (End of Week 1)
 **Gate Criteria:**
-- [ ] All developers can build and run app
-- [ ] CI/CD pipeline operational
-- [ ] Design system documented
-- [ ] Core components library created
+- [ ] App runs on web, iOS, Android
+- [ ] All dependencies installed
+- [ ] Team can run locally
+- [ ] No blockers
 
 ---
 
-### Milestone 2: UI Complete (End of Week 6)
+### Milestone 2: Navigation Complete (End of Week 2)
 **Gate Criteria:**
-- [ ] All screens migrated
-- [ ] Navigation functional
-- [ ] Mock data working
-- [ ] No blockers for storage work
+- [ ] All screens navigable
+- [ ] Theme system in place
+- [ ] No navigation bugs
 
 ---
 
-### Milestone 3: Feature Parity (End of Week 13)
+### Milestone 3: Core UI Complete (End of Week 4)
 **Gate Criteria:**
-- [ ] All web features implemented
+- [ ] Recipe list working
+- [ ] Recipe detail working
+- [ ] Camera working
+- [ ] No major UI issues
+
+---
+
+### Milestone 4: Feature Complete (End of Week 6)
+**Gate Criteria:**
 - [ ] Storage working
-- [ ] API integration complete
-- [ ] Camera functional
+- [ ] API integration working
+- [ ] All features implemented
+- [ ] Ready for polish
 
 ---
 
-### Milestone 4: Production Ready (End of Week 16)
+### Milestone 5: Production Ready (End of Week 8)
 **Gate Criteria:**
+- [ ] All platforms tested
 - [ ] No critical bugs
-- [ ] 80%+ test coverage
-- [ ] Performance targets met
-- [ ] Ready for beta
+- [ ] Tests passing
+- [ ] Performance acceptable
 
 ---
 
-### Milestone 5: Launch (Week 20)
+### Milestone 6: Launch (End of Week 9)
 **Gate Criteria:**
-- [ ] App store approval
-- [ ] Beta feedback positive
-- [ ] No showstopper bugs
-- [ ] Monitoring in place
+- [ ] Deployed to all platforms
+- [ ] Monitoring active
+- [ ] No showstoppers
+- [ ] Team ready for support
 
 ---
 
@@ -923,27 +866,10 @@ This document provides a detailed week-by-week timeline for migrating FamilyPlat
 
 | Week | Risk | Mitigation |
 |------|------|------------|
-| **Week 1-2** | Setup delays | Prepare environment guides in advance |
-| **Week 7-8** | Storage complexity | Start simple, iterate |
-| **Week 12-13** | API integration issues | Test API early, have fallback |
-| **Week 19** | App store rejection | Follow guidelines strictly, prepare appeals |
-
-### Contingency Plans
-
-1. **If behind schedule by Week 6:**
-   - Cut optional features
-   - Extend timeline 2 weeks
-   - Add developer resources
-
-2. **If critical bug in Week 17:**
-   - Delay beta 1 week
-   - Fix before wider release
-   - Communicate with testers
-
-3. **If app store rejection:**
-   - Address feedback immediately
-   - Resubmit within 3 days
-   - Have backup submission ready
+| **Week 1** | Setup issues | Detailed setup guide, team support |
+| **Week 4** | Camera platform differences | Early testing, platform detection |
+| **Week 6** | API integration problems | Test API early, mock responses |
+| **Week 9** | App store rejection | Follow guidelines, prepare appeals |
 
 ---
 
@@ -951,20 +877,12 @@ This document provides a detailed week-by-week timeline for migrating FamilyPlat
 
 ### Developer Time
 
-| Phase | Lead Dev | Junior Dev | Total |
-|-------|----------|------------|-------|
-| Weeks 1-6 | 100% | 100% | 2 FTE |
-| Weeks 7-13 | 100% | 100% | 2 FTE |
-| Weeks 14-16 | 100% | 50% | 1.5 FTE |
-| Weeks 17-20 | 50% | 25% | 0.75 FTE |
-
-### Support Roles
-
-| Role | Allocation | Key Weeks |
-|------|-----------|-----------|
-| **Designer** | 50% | Weeks 1-2, 14-15, 18 |
-| **QA** | 50% | Weeks 14-17 |
-| **DevOps** | 25% | Weeks 1-2, 17-20 |
+| Week | Lead Dev | Support | Total |
+|------|----------|---------|-------|
+| 1-2 | 100% | 20% | 1.2 FTE |
+| 3-6 | 100% | 30% | 1.3 FTE |
+| 7-8 | 100% | 50% | 1.5 FTE |
+| 9 | 100% | 30% | 1.3 FTE |
 
 ---
 
@@ -974,61 +892,46 @@ This document provides a detailed week-by-week timeline for migrating FamilyPlat
 
 | Metric | Target | Measured At |
 |--------|--------|-------------|
-| **Test Coverage** | 80%+ | Week 16 |
-| **Crash Rate** | <1% | Week 17 |
+| **Test Coverage** | 70%+ | Week 8 |
+| **Crash Rate** | <1% | Week 9 |
 | **Build Success** | 95%+ | Ongoing |
-| **Code Review Time** | <24h | Ongoing |
-
-### Launch Metrics
-
-| Metric | Target | Timeframe |
-|--------|--------|-----------|
-| **Downloads** | 1,000+ | Month 1 |
-| **Active Users** | 500+ | Month 1 |
-| **Rating** | 4.0+ | Month 1 |
-| **Retention** | 40%+ | Week 1 |
+| **Performance** | 60 FPS | Week 7 |
 
 ---
 
 ## Post-Launch Roadmap
 
-### Month 2-3 (Stabilization)
-
+### Week 10-12 (Stabilization)
+- Monitor crash reports
 - Fix user-reported bugs
 - Performance improvements
-- UI polish based on feedback
-- Feature requests evaluation
+- Respond to reviews
 
 ### Month 4-6 (Enhancement)
-
 - Shopping list feature
-- Advanced search
 - Recipe categories
-- Social features (optional)
-
-### Month 7-12 (Growth)
-
-- Marketing campaigns
-- App store optimization
-- Feature expansion
-- Platform improvements
+- Advanced search
+- User feedback features
 
 ---
 
 ## Related Documentation
 
-- [React Native Migration Plan](./react-native-plan.md)
+- [React Native Web Migration Plan](./react-native-plan.md)
 - [Migration Comparison](./comparison.md)
-- [Architecture Overview](../architecture/overview.md)
 - [Project Roadmap](../project-management/roadmap.md)
+- [Architectural Decisions](../project-management/decisions.md)
 
 ---
 
 ## Changelog
 
+### Version 2.0.0 (December 10, 2025)
+- **MAJOR CHANGE:** Updated for React Native Web (9-week plan)
+- Changed from 20-week separate apps to 9-week single codebase
+- Updated all weekly breakdowns
+- Added platform-specific testing
+- Revised resource allocation
+
 ### Version 1.0.0 (December 10, 2025)
-- Initial timeline created
-- 20-week schedule established
-- Weekly breakdown detailed
-- Milestones defined
-- Risk management plan included
+- Initial timeline (20-week separate apps approach)
