@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "FamilyPlate",
+    "slug": "familyplate",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF7ED"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.familyplate.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "FamilyPlate needs access to your camera to capture recipe photos.",
+        "NSPhotoLibraryUsageDescription": "FamilyPlate needs access to your photo library to select recipe photos.",
+        "NSPhotoLibraryAddUsageDescription": "FamilyPlate needs permission to save recipe photos to your library."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFF7ED"
+      },
+      "package": "com.familyplate.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "FamilyPlate needs access to your photos to select recipe images."
+        }
+      ]
+    ]
+  }
+}
