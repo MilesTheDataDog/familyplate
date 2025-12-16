@@ -1,63 +1,93 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import 'react-native-gesture-handler';
+
+// Import theme
 import { theme } from './constants/theme';
 
+
+// Import screens
+import HomeScreen from './screens/HomeScreen';
+import UploadScreen from './screens/UploadScreen';
+import LibraryScreen from './screens/LibraryScreen';
+import RecipeDetailScreen from './screens/RecipeDetailScreen';
+import ShoppingScreen from './screens/ShoppingScreen';
+
+// Create Drawer Navigator
+const Drawer = createDrawerNavigator();
+
+/**
+ * FamilyPlate App - Main application component with navigation
+ * @returns {JSX.Element} App component with drawer navigation
+ */
 export default function App() {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>FamilyPlate</Text>
-        <Text style={styles.subtitle}>Preserve your family recipes</Text>
-      </View>
-      
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Week 1 Complete! ✅</Text>
-        <Text style={styles.cardText}>
-          Your theme includes colors, spacing, typography, and shadows.
-        </Text>
-      </View>
-      
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          headerTintColor: '#FFFFFF',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+          },
+          drawerActiveTintColor: theme.colors.primary,
+          drawerInactiveTintColor: theme.colors.textSecondary,
+          drawerStyle: {
+            backgroundColor: theme.colors.background,
+          },
+          drawerLabelStyle: {
+            fontSize: 16,
+            fontWeight: '600',
+          },
+        }}
+      >
+        <Drawer.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: 'FamilyPlate',
+            drawerLabel: '🏠 Home',
+          }}
+        />
+        <Drawer.Screen
+          name="Upload"
+          component={UploadScreen}
+          options={{
+            title: 'Add Recipe',
+            drawerLabel: '📷 Add Recipe',
+          }}
+        />
+        <Drawer.Screen
+          name="Library"
+          component={LibraryScreen}
+          options={{
+            title: 'Recipe Library',
+            drawerLabel: '📚 Library',
+          }}
+        />
+        <Drawer.Screen
+          name="RecipeDetail"
+          component={RecipeDetailScreen}
+          options={{
+            title: 'Recipe Details',
+            drawerLabel: '📖 Recipe Details',
+          }}
+        />
+        <Drawer.Screen
+          name="Shopping"
+          component={ShoppingScreen}
+          options={{
+            title: 'Shopping List',
+            drawerLabel: '🛒 Shopping List',
+          }}
+        />
+      </Drawer.Navigator>
+      <StatusBar style="light" />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing.lg,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: theme.spacing.xl,
-  },
-  title: {
-    ...theme.typography.title,
-    color: theme.colors.primary,
-    marginBottom: theme.spacing.xs,
-  },
-  subtitle: {
-    ...theme.typography.body,
-    color: theme.colors.textSecondary,
-    fontStyle: 'italic',
-  },
-  card: {
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borderRadius.lg,
-    padding: theme.spacing.lg,
-    ...theme.shadows.md,
-    maxWidth: 400,
-    width: '100%',
-  },
-  cardTitle: {
-    ...theme.typography.heading,
-    marginBottom: theme.spacing.sm,
-  },
-  cardText: {
-    ...theme.typography.body,
-    color: theme.colors.textSecondary,
-  },
-});
